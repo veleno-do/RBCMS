@@ -1,0 +1,4 @@
+/db/data/*
+/server/.pki
+/server/root/.bash_history
+/server/root/log/access.log

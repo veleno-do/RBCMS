@@ -1,0 +1,3 @@
+class AccessGate
+    
+end
