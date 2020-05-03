@@ -1,8 +1,8 @@
 class App
-    attr_reader :access, :parsedRequest, :logging, :socket, :infomation, :request
+    attr_reader :parsedRequest, :socket, :request
     public
-    def self.create server
-        self.new server
+    def self.create socket
+        self.new socket
     end
 
     def head
@@ -15,26 +15,11 @@ class App
 
     def initialize socket
         @socket = socket
-        @infomation = access
         @request = parsedRequest
-        AccessLogger.paccesslog logging # <- logging（仮）
     end
 
     private
-    def access
-        arr = []
-        while req = socket.gets.chomp
-            break if req == ''
-            arr.push(req)
-        end
-        arr
-    end
-
     def parsedRequest
-        Request.parser infomation
-    end
-
-    def logging
-        infomation.join(' - ')
+        Request.parser socket
     end
 end

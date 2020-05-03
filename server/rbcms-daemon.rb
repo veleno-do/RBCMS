@@ -1,9 +1,6 @@
 require "socket"
 
 server = TCPServer.open(80)
-addr = server.addr
-addr.shift
-printf("server is on %s\n", addr.join(":"))
 
 loop do
     Thread.new( server.accept ) do |socket|
@@ -23,7 +20,9 @@ loop do
 
             socket.write    "#{content}\r\n"
 
-        ensure
+        rescue => exception
+            SysLogger.error exception.message
+        ensure 
             app = nil
             socket.close
         end

@@ -1,7 +1,8 @@
 class Request
+    attr_reader :env
     public
-    def self.parser infomation
-        return self.new infomation
+    def self.parser socket
+        self.new socket
     end
 
     def head
@@ -9,13 +10,12 @@ class Request
     end
 
     def content
-        
+        ""
     end
 
-    def initialize infomation
-        @infomation = infomation
+    def initialize socket
+        @env = Analysisor.run socket
     end
 
     private
-    attr_reader
 end
