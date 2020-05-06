@@ -15,7 +15,7 @@ class AccessGate
     attr_reader :resource
     public
     def examinor
-
+        
     end
 
     def whether
