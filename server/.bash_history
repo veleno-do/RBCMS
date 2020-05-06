@@ -7,3 +7,10 @@ ls log
 cd log
 cat access.log
 exit
+ls
+ruby get.rb 
+ruby get.rb 
+ruby get.rb 
+curl localhost
+curl localhost
+exit

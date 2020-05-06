@@ -1,13 +1,13 @@
 module AnalysisorInterface
-    def run
-        # socket を解析した結果を環境変数として Env クラス変数に格納する
+    def self.run
+        # socket を解析した結果を環境変数として Env インスタンス変数に格納する
         raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
     end
 end
 
 class Analysisor
     include AnalysisorInterface
-    attr_reader :split, :infoFormatter, :socket
+    attr_reader :socket
     public
     def self.run socket
         self.new(socket).storeEnv
@@ -17,11 +17,18 @@ class Analysisor
         begin
             formatted = infoFormatter(split)
             envs = Hash[]
+            buffer = ''
             formatted.each do |env|
                 if env.length == 2 then envs.store(env[0].to_s.intern, env[1]) elsif env[0] == "GET" || env[0] == "POST" then envs.store(:Method, env[0]);envs.store(:Uri, env[1]);envs.store(:Protocol, env[2]) else end
             end
+            if envs[:Method] == "POST"
+                envs[:ContentLength].to_i.times do
+                    buffer << socket.getc
+                end
+                envs.store(:Posted, buffer)
+            end
         rescue => exception
-            SysLogger.error exception.message            
+            SysLogger.error exception.message
         end
         Env.new(envs)
     end
@@ -45,12 +52,10 @@ class Analysisor
     def split
         infomations = []
         begin
-            while info = socket.gets.chomp
+            while info = socket.gets.chomp("\r\n")
                 infomations.push(info)
                 break if info == ''
             end
-            # メソッドが POST の場合のみもう一行 (value) 取得する
-            infomations.push("Posted: #{socket.gets.chomp}") if infomations[0].include?("POST")
         rescue => exception
             SysLogger.error exception.message
         end
