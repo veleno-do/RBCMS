@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+
+        <title>RBCMS - コンソール</title>
+    </head>
+    <body>
+        <div id="app" class="text-secondary">
+
+            <div class="position-fixed w-100 bg-light shadow border-bottom" style="z-index:100;display:flex;align-items:center;">
+
+                <div class="col-6" style="overflow-x:hidden;">
+                    <h3 class="py-1"><a href="" target="" style="white-space:nowrap;">{{SITENAME}}</a></h3>
+                </div>
+                <div class="col-6">
+                    <div class="list-group list-group-horizontal ml-auto" style="width:fit-content;">
+                        <a href="javascript:void(0)" target="" class="list-group-item border-0 small">{{USERNAME}}</a>
+                        <a href="" target="" class="list-group-item border-0 small">ログアウト</a>
+                    </div>
+                </div> 
+
+            </div>
+            
+            <table class="table table-borderless position-fixed" style="margin-top:50px;">
+
+                <thead>
+
+                    <tr class="d-flex">
+                        <th class="col-2 border-right border-bottom px-3 bg-light">メニュー</th>
+                        <th class="col-10 border-bottom bg-light">{{head}}</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr class="d-flex">
+
+                        <td class="col-2 border-right p-0" style="height:100vh;overflow:hidden;">
+
+                            <div class="list-group" id="list-tab" role="tablist">
+                                <a class="list-group-item list-group-item-action border-0 small" id="list-dashboard-list" data-toggle="list" href="#list-dashboard" role="tab" aria-controls="list-dashboard" v-on:click="head = 'ダッシュボード'" ><i class="fas fa-hashtag"></i> ダッシュボード</a>
+                                <a class="list-group-item list-group-item-action border-0 small" id="list-post-list" data-toggle="list" href="#list-post" role="tab" aria-controls="list-post" v-on:click="head = '投稿'" ><i class="fas fa-feather-alt"></i> 投稿</a>
+                                <a class="list-group-item list-group-item-action border-0 small" id="list-media-list" data-toggle="list" href="#list-media" role="tab" aria-controls="list-media" v-on:click="head = 'メディアのアップロード'" ><i class="fas fa-upload"></i> メディアのアップロード</a>
+                                <a class="list-group-item list-group-item-action border-0 small" id="list-medias-list" data-toggle="list" href="#list-medias" role="tab" aria-controls="list-medias" v-on:click="head = 'メディア一覧'" ><i class="fas fa-images"></i> メディア一覧</a>
+                                <a class="list-group-item list-group-item-action border-0 small" id="list-article-list" data-toggle="list" href="#list-article" role="tab" aria-controls="list-article" v-on:click="head = '記事一覧'" ><i class="fas fa-file-alt"></i> 記事一覧</a>
+                                <a class="list-group-item list-group-item-action border-0 small" id="list-comments-list" data-toggle="list" href="#list-comments" role="tab" aria-controls="list-comments" v-on:click="head = 'コメント一覧'" ><i class="fas fa-comment-alt"></i> コメント一覧</a>
+                                <a class="list-group-item list-group-item-action border-0 small" id="list-theme-list" data-toggle="list" href="#list-theme" role="tab" aria-controls="list-theme" v-on:click="head = 'テーマの変更'" ><i class="fas fa-th-large"></i> テーマの変更</a>
+                                <a class="list-group-item list-group-item-action border-0 small" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings" v-on:click="head = '詳細設定'" ><i class="fas fa-sliders-h"></i> 詳細設定</a>
+                            </div>
+
+                        </td>
+
+                        <td id="main" class="col-10" style="overflow:scroll;overflow-x:hidden;height:calc(100vh - 103px);">
+
+                            <div class="tab-content" id="nav-tabContent">
+
+                                <div class="tab-pane fade show active" id="list-dashboard" role="tabpanel" aria-labelledby="list-dashboard-list">
+
+                                    <div class="row card-columns">
+                                        <div class="col-12 mb-3">
+                                            <div class="card bg-light">
+                                                <div class="card-header">
+                                                    <h4 class="mb-0">RBCMS - コンソール</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">こんにちは、ユーザー名</h5>
+                                                    <div class="d-flex justify-content-between align-items-start">
+                                                        <ul class="list-group">
+                                                            <li class="list-group-item border-0 bg-light py-1"><a data-toggle="list" href="#list-post" role="tab" aria-controls="list-post">記事を投稿する</a></li>
+                                                            <li class="list-group-item border-0 bg-light py-1"><a data-toggle="list" href="#list-media" role="tab" aria-controls="list-media">メディアをアップロードする</a></li>
+                                                            <li class="list-group-item border-0 bg-light py-1"><a data-toggle="list" href="#list-article" role="tab" aria-controls="list-article">記事を編集する</a></li>
+                                                        </ul>
+                                                        <ul class="list--group">
+                                                            <li class="list-group-item border-0 bg-light py-1"><a data-toggle="list" href="#list-theme" role="tab" aria-controls="list-theme">テーマを変更する</a></li>
+                                                        </ul>
+                                                        <ul class="list-group">
+                                                            <li class="list-group-item border-0 bg-light py-1"><a data-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">サイトの設定を変更する</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 mb-3">
+                                            <div class="card bg-light">
+                                                <div class="card-header">
+                                                    <h5 class="mb-0">コメント</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="card-text"><a data-toggle="list" href="#list-comments" role="tab" aria-controls="list-comments" ><i class="fas fa-comment-alt"></i> <span>1</span>件のコメントが届いています</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 mb-3">
+                                            <div class="card bg-light">
+                                                <div class="card-header">
+                                                    <h5 class="mb-0">簡易投稿</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="form-group mb-4">
+                                                        <label for="easyPostTitle">タイトル</label>
+                                                        <input type="text" class="form-control" id="easyPostTitle" aria-describedby="easy-post-title" placeholder="簡易投稿のタイトルを入力" v-model="postTitle">
+                                                        <small id="easy-post-title" class="form-text text-muted">簡易投稿記事のタイトルを設定します。</small>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="easyPostContent">投稿内容</label>
+                                                        <textarea class="form-control" id="easyPostContent" rows="6" aria-describedby="easy-post-content" placeholder="簡易投稿の内容を入力" v-model="postContent"></textarea>
+                                                        <small id="easy-post-content" class="form-text text-muted">簡易投稿記事の投稿内容を設定します。HTML文を直接記述してください。カテゴリは「なし」で設定されます。</small>
+                                                    </div>
+                                                    <div class="w-100 text-right">
+                                                        <a href="javascript:void(0)" class="btn btn-primary">投稿</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="tab-pane fade position-relative" id="list-post" role="tabpanel" aria-labelledby="list-post-list">
+                                    
+                                    <section class="col-12">
+
+                                        <div class="form-group">
+                                            <label for="articleTitle">記事のタイトル <span class="badge badge-danger">必須</span></label>
+                                            <input type="text" class="form-control" id="articleTitle" aria-describedby="article-title" placeholder="記事のタイトルを設定" v-model="postTitle" required />
+                                            <small id="article-title" class="form-text text-muted">記事のh1要素とtitle要素になります。</small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="articleId">記事の識別子 <span class="badge badge-danger">必須</span></label>
+                                            <input type="text" class="form-control" id="articleId" aria-describedby="article-id" placeholder="記事の識別子を設定" v-model="postId" required />
+                                            <small id="article-id" class="form-text text-muted">識別子はURIに使用します。英数字のみ使用できます。</small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="articleStylesheet">記事のスタイル</label>
+                                            <textarea class="form-control" id="articleStylesheet" rows="5" aria-describedby="article-stylesheet" placeholder="記事のスタイルを記述" v-model="postStyle"></textarea>
+                                            <small id="article-stylesheet" class="form-text text-muted">記事のスタイルを書きます。文法はCSSです。</small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="articleContent">記事のコンテンツ <span class="badge badge-danger">必須</span></label>
+                                            <textarea class="form-control postarea" id="articleContent" rows="15" aria-describedby="article-content" placeholder="記事のコンテンツを入力" v-model="postContent" required></textarea>
+                                            <small id="article-control" class="form-text text-muted">HTML文をそのまま書きます。下のボタンよりタグの追加は簡単に行えます。</small>
+                                        </div>
+
+                                        <div class="d-flex mb-5 flex-wrap">
+                                            <template v-for="tag in tags">
+                                                <a href="javascript:void(0)" class="btn btn-primary m-2" v-on:click="puttag(tag.body)">{{tag.tagName}}</a>
+                                            </template>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="articleCategory">記事のカテゴリ <span class="badge badge-danger">必須</span></label>
+                                            <select class="form-control" id="articleCategory" aria-describedby="article-category" v-model="postCategory">
+                                                <option selected>なし</option>
+                                                <option>HTML</option>
+                                                <option>CSS</option>
+                                                <option>JavaScript</option>
+                                            </select>
+                                            <small id="article-category" class="form-text text-muted">記事のカテゴリを設定します。カテゴリの追加は詳細設定から行えます。</small>
+                                        </div>
+
+                                        <div class="w-100 text-right mb-5">
+                                            <a href="javascript:void(0)" class="btn btn-primary">プレビュー</a>
+                                        </div>
+
+                                        <div class="w-100 text-right mb-5">
+                                            <a href="javascript:void(0)" class="btn btn-primary">投稿</a>
+                                        </div>
+
+                                    </section>
+
+                                </div>
+
+                                <div class="tab-pane fade position-relative" id="list-media" role="tabpanel" aria-labelledby="list-media-list">
+
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <input type="file" class="form-control-file" id="mediaUpload" accept="image/*" required />
+                                        </div>
+                                        
+                                        <div class="w-100">
+                                            <a href="javascript:void(0)" class="btn btn-primary" v-on:click="uploadMedia">アップロード</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="tab-pane fade position-relative" id="list-medias" role="tabpanel" aria-labelledby="list-medias-list">
+
+                                    <div class="col-12 mb-2">
+                                        <a href="javascript:void(0)" target="" class="btn btn-primary">メディアを更新</a>
+                                    </div>
+
+                                    <div class="card-columns">
+
+                                        <template v-for="image in images">
+                                            <div class="card">
+                                                <img class="card-img-top" :src="image.imagePath" alt="...">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">{{image.imagePath}}</h6>
+                                                </div>
+                                            </div>
+                                        </template>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="tab-pane fade" id="list-article" role="tabpanel" aria-labelledby="list-article-list">
+
+                                    <table class="table table-striped table-hover">
+                                        
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">タイトル</th>
+                                                <th scope="col">コンテンツ</th>
+                                                <th scope="col">編集</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <template v-for="article in articles">
+                                                <tr>
+                                                    <td>{{article.title}}</td>
+                                                    <td>{{article.content}}</td>
+                                                    <td><a href="javascript:void(0)" target="" class="btn btn-primary text-light">編集</a></td>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+
+                                    </table>
+
+                                    <!-- <div class="w-100 text-center">
+                                        <a href="javascript:void(0)" target="">さらに10件表示</a>
+                                    </div> -->
+
+                                </div>
+
+                                <div class="tab-pane fade" id="list-comments" role="tabpanel" aria-labelledby="list-comments-list">
+
+                                    <template v-for="comment in comments">
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <h4 class="card-title">{{comment.postedBy}}</h4>
+                                                <h6 class="card-subtitle mb-2 text-muted"><small>投稿記事: </small><a href="javascript:void(0)" target="">{{comment.targetArticle}}</a><small>より</small></h6>
+                                                <p class="card-t+ext">{{comment.body}}</p>
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <div class="w-100 text-center">
+                                        <a href="javascript:void(0)" target="">さらに10件表示</a>
+                                    </div>
+
+                                </div>
+                                
+                                <div class="tab-pane fade" id="list-theme" role="tabpanel" aria-labelledby="list-theme-list">
+
+                                    <div class="col-12 mb-3">
+                                        <div class="form-group">
+                                            <input type="file" class="form-control-file" id="themeUpload" accept="application/zip" required />
+                                        </div>
+                                        
+                                        <div class="w-100">
+                                            <a href="javascript:void(0)" class="btn btn-primary" target="" v-on:click="uploadTheme">アップロード</a>
+                                        </div>
+                                    </div>
+
+                                    <template v-for="theme in themes">
+                                        <div class="card bg-light w-100 mb-3">
+                                            <div class="card-header">{{theme.themeName}}</div>
+                                            <div class="card-body">
+                                                <p class="card-text">{{theme.themeDescription}}</p>
+                                                <a href="javascript:void(0)" class="btn btn-primary" v-on:click="changeTheme(theme.themeId)">このテーマに変更</a>
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                </div>
+
+                                <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+
+                                    <div class="form-group mb-4">
+                                        <label for="changeSitename">サイト名の変更</label>
+                                        <input type="text" class="form-control" id="changeSitename" aria-describedby="change-sitename" placeholder="サイト名を入力" v-model="SITENAME" >
+                                        <small id="change-sitename" class="form-text text-muted">コンソールのヘッダ左に表示されます。</small>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label for="changeUsername">ユーザー名の変更</label>
+                                        <input type="text" class="form-control" id="changeUsername" aria-describedby="change-username" placeholder="ユーザー名を入力" v-model="USERNAME" >
+                                        <small id="change-username" class="form-text text-muted">コンソールのヘッダ右に表示されます。</small>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label for="changeAddress">設定メールアドレスの変更</label>
+                                        <input type="email" class="form-control" id="changeAddress" aria-describedby="change-email" placeholder="メールアドレスを入力" v-model="ADDRESS" >
+                                        <small id="change-email" class="form-text text-muted">管理者の連絡先を設定します。</small>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label for="whetherAddClass">タグボタンより追加されたタグにclass属性をデフォルトで付与する</label>
+                                        <select class="form-control" id="whetherAddClass" aria-describedby="whether-add-class" v-model="whetherAddClass" >
+                                            <option>on</option>
+                                            <option>off</option>
+                                        </select>
+                                        <small id="whether-add-class" class="font-text text-muted">onの場合デフォルトでclass属性が付与されます。</small>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label for="whetherAddId">タグボタンより追加されたタグにid属性をデフォルトで付与する</label>
+                                        <select class="form-control" id="whetherAddId" aria-describedby="whether-add-id" v-model="whetherAddId" >
+                                            <option>on</option>
+                                            <option>off</option>
+                                        </select>
+                                        <small id="whether-add-id" class="font-text text-muted">onの場合デフォルトでid属性が付与されます。</small>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label for="whetherAddStyle">タグボタンより追加されたタグにstyle属性をデフォルトで付与する</label>
+                                        <select class="form-control" id="whetherAddStyle" aria-describedby="whether-add-style" v-model="whetherAddStyle" >
+                                            <option>on</option>
+                                            <option>off</option>
+                                        </select>
+                                        <small id="whether-add-style" class="font-text text-muted">onの場合デフォルトでstyle属性が付与されます。</small>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label for="articlesPerPage">一ページあたりに表示する記事の数</label>
+                                        <select class="form-control" id="articlesPerPage" aria-describedby="articles-per-page" v-model="PAGENATION" >
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                        </select>
+                                        <small id="articles-per-page" class="form-text text-muted">3~9から選択できます。</small>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label for="addArticleCategory">カテゴリを追加</label>
+                                        <div id="addingCategory" class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <h6 class="alert-heading mb-0">追加処理は行っていません。</h6>
+                                            <hr>
+                                            <p class="mb-0"><small>追加するには追加したいカテゴリ名を入力して10秒後に追加処理が走ります。</small></p>
+                                        </div>
+                                        <input type="text" class="form-control" id="addArticleCategory" aria-describedby="add-article-category" placeholder="カテゴリ名を入力" v-model="addCategory" >
+                                        <small id="add-article-category" class="form-text text-muted">カテゴリ名はURIにも使われます。入力が終わって10秒後に追加処理が完了します。完了するまでは、文字をそのままにしてください。キャンセルしたい場合は、10秒経つ前に文字を全て削除してください。</small>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label for="removeArticleCategory">カテゴリを削除</label>
+                                        <div id="removingCategory" class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <h6 class="alert-heading mb-0">削除処理は行っていません。</h6>
+                                            <hr>
+                                            <p class="mb-0"><small>削除するには削除したいカテゴリ名を入力して5秒後に削除処理が走ります。</small></p>
+                                        </div>
+                                        <input type="text" class="form-control" id="removeArticleCategory" aria-describedby="remove-article-category" placeholder="カテゴリ名を入力" v-model="removeCategory" >
+                                        <small id="remove-article-category" class="form-text text-muted">入力が終わって5秒後に削除処理が完了します。完了するまでは、文字をそのままにしてください。キャンセルしたい場合は、10秒経つ前に文字を全て削除してください。</small>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label for="changeUriRule">URIをカスタマイズ</label>
+                                        <input type="text" class="form-control" id="changeUriRule" aria-describedby="change-uri-rule" placeholder="/正規表現を入力/" v-model="UriRule" >
+                                        <small id="change-uri-rule" class="form-text text-muted">サイトのURLに変更を加えます。文法に誤りがある場合、正常に動作しない恐れがあるので、基本変更しないことをお勧めします。</small>
+                                        <dl>
+                                            <dt><small>文法</small></dt>
+                                            <dd><ul>
+                                                <li><small>//</small></li>
+                                            </ul></dd>
+                                        </dl>
+                                    </div>
+
+                                </div>
+                                
+                            </div>
+                            
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+        
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+        <script>
+
+            let app = new Vue({
+
+                el: "#app",
+                
+                data: {
+                    SITENAME: "Blog",
+                    USERNAME: "default",
+                    ADDRESS: "example.email",
+
+                    whetherAddClass: "on",
+                    whetherAddId: "on",
+                    whetherAddStyle: "on",
+
+                    PAGENATION: "3",
+
+                    addCategory: "",
+                    removeCategory: "",
+
+                    UriRule: "",
+
+                    head: "ダッシュボード",
+
+                    articles: [
+                        {
+                            title: "Hello World",
+                            content: "こんにちは、最初の投稿です。削除してRBCMSを始めましょう。"
+                        },
+                    ],
+
+                    comments: [
+                        {
+                            postedBy: "投稿者",
+                            targetArticle: "Hello World",
+                            articleId: 0,
+                            body: "これはコメントです。"
+                        },
+                    ],
+
+                    themes: [
+                        {
+                            themeName: "デフォルト",
+                            themeDescription: "最初から用意されている、デフォルトのテーマです。",
+                            themeId: 'default',
+                        },
+                    ],
+
+                    images: [
+                        { imagePath: "./EULgyoqUUAAOxhe.jpeg" },
+                        { imagePath: "./IMG_1B91C8FD65DB-1.jpeg" },
+                        { imagePath: "./nijisanji_dott.jpeg" },
+                        { imagePath: "./EQopncIUUAAdNUv.jpeg" },
+                    ],
+
+                    tags: [
+                        { tagName: "div", body: `<div id="" class="" style=""></div>` },{ tagName: "h2", body: `<h2 id="" class="" style=""></h2>` },{ tagName: "h3", body: `<h3 id="" class="" style=""></h3>` },{ tagName: "h4", body: `<h4 id="" class="" style=""></h4>` },{ tagName: "h5", body: `<h5 id="" class="" style=""></h5>` },{ tagName: "h6", body: `<h6 id="" class="" style=""></h6>` },{ tagName: "p", body: `<p id="" class="" style=""></p>` },{ tagName: "span", body: `<span id="" class="" style=""></span>` },{ tagName: "address", body: `<address></address>` },{ tagName: "br", body: `<br>` },{ tagName: "a", body: `<a href="" id="" class="" style=""></a>` },{ tagName: "em", body: `<em></em>` },{ tagName: "strong", body: `<strong></strong>` },{ tagName: "del", body: `<del></del>` },{ tagName: "ins", body: `<ins></ins>` },{ tagName: "abbr", body: `<abbr></abbr>` },{ tagName: "acronym", body: `<acronym></acronym>` },{ tagName: "dfn", body: `<dfn></dfn>` },{ tagName: "blockquote", body: `<blockquote></blockquote>` },{ tagName: "q", body: `<q></q>` },{ tagName: "cite", body: `<cite></cite>` },{ tagName: "sup", body: `<sup></sup>` },{ tagName: "sub", body: `<sub></sub>` },{ tagName: "pre", body: `<pre></pre>` },{ tagName: "code", body: `<code></code>` },{ tagName: "var", body: `<var></var>` },{ tagName: "kbd", body: `<kbd></kbd>` },{ tagName: "samp", body: `<samp></samp>` },{ tagName: "bdo", body: `<bdo dir=""></bdo>` },{ tagName: "font", body: `<font face="" size="" color=""></font>` },{ tagName: "basefont", body: `<basefont face="" size=""></basefont>` },{ tagName: "big", body: `<big></big>` },{ tagName: "small", body: `<small></small>` },{ tagName: "b", body: `<b></b>` },{ tagName: "i", body: `<i></i>` },{ tagName: "strike", body: `<strike></strike>` },{ tagName: "u", body: `<u></u>` },{ tagName: "tt", body: `<tt></tt>` },{ tagName: "center", body: `<center></center>` },{ tagName: "hr", body: `<hr size="" width="" color="" />` },{ tagName: "ul", body: `<ul id="" class="" style=""></ul>` },{ tagName: "ol", body: `<ol id="" class="" style=""></ol>` },{ tagName: "li", body: `<li id="" class="" style=""></li>` },{ tagName: "dl", body: `<dl id="" class="" style=""></dl>` },{ tagName: "dt", body: `<dt id="" class="" style=""></dt>` },{ tagName: "dd", body: `<dd id="" class="" style=""></dd>` },{ tagName: "dir", body: `<dir id="" class="" style=""></dir>` },{ tagName: "menu", body: `<menu id="" class="" style=""></menu>` },{ tagName: "img", body: `<img src="" width="" height="" id="" class="" style="" />` },{ tagName: "map", body: `<map name="" />` },{ tagName: "area", body: `<area href="" shape="" alt="" coords="" id="" class="" style="" />` },{ tagName: "object", body: `<object data="" type="" width="" height="" name=""></object>` },{ tagName: "table", body: `<table id="" class="" style=""></table>` },{ tagName: "caption", body: `<caption></caption>` },{ tagName: "thead", body: `<thead id="" class="" style=""></thead>` },{ tagName: "tbody", body: `<tbody id="" class="" style=""></tbody>` },{ tagName: "tfoot", body: `<tfoot id="" class="" style=""></tfoot>` },{ tagName: "colgroup", body: `<colgroup width="" align="" valign="" char="" charoff="" />` },{ tagName: "col", body: `<col width="" align="" valign="" char="" charoff="" />` },{ tagName: "tr", body: `<tr id="" class="" style=""></tr>` },{ tagName: "th", body: `<th width="" align="" valign="" char="" charoff="" bgcolor="" id="" class="" style=""></th>` },{ tagName: "td", body: `<td width="" align="" valign="" char="" charoff="" bgcolor="" id="" class="" style=""></td>` },{ tagName: "iframe", body: `<iframe src="" name="" width="" height="" id="" class="" style=""></iframe>` },{ tagName: "form", body: `<form action="" method="" enctype="" accept-charset="" accept="" name="" target="" id="" class="" style=""></form>` },{ tagName: "input", body: `<input type="" name="" value="" size="" maxlength="" id="" class="" style="" />` },{ tagName: "textarea", body: `<textarea name="" rows="" cols="" id="" class="" style=""></textarea>` },{ tagName: "select", body: `<select name="" id="" class="" style=""></select>` },{ tagName: "option", body: `<option id="" class="" style=""></option>` },{ tagName: "optgroup", body: `<optgroup label=""></optgroup>` },{ tagName: "button", body: `<button type="" onclick="" value="" id="" class="" style=""></button>` },{ tagName: "label", body: `<label for="" id="" class="" style=""></label>` },{ tagName: "fieldset", body: `<fieldset></fieldset>` },{ tagName: "legend", body: `<legend></legend>` },
+                    ],
+
+                    token: "abc",
+
+                    postTitle: "",
+                    postId: "",
+                    postStyle: "",
+                    postContent: "",
+                    postCategory: "なし",
+                },
+
+                computed: {
+
+                },
+
+                methods: {
+
+                    post: function (datasel, resel = null) {
+                        console.log(resel)
+                        try {
+                            var XHR = new XMLHttpRequest();
+                            var postdata = ''
+                            XHR.onreadystatechange = function () {
+                                var READYSTATE_COMPLETED = 4
+                                var HTTP_STATUS_OK = 200
+                                if (this.readyState == READYSTATE_COMPLETED && this.status == HTTP_STATUS_OK && resel !== null) {
+                                    resel.innerHTML = this.responseText
+                                }
+                            }
+                            var keys = Object.keys(datasel);
+                            for (var x = 0; x < keys.length; x ++) {
+                                postdata += encodeURIComponent (keys[x]) + '=' + encodeURIComponent (datasel[keys[x]]) + '&'
+                            }
+                            postdata = postdata.slice(0,-1)
+                            postdata = postdata.replace(/%20/g,'+')
+                            console.log(postdata)
+                            XHR.open ('POST','/admin/post',true)
+                            XHR.setRequestHeader ('Content-Type','application/x-www-form-urlencoded')
+                            XHR.send (postdata)
+                        } catch (error) {
+                            console.log (error)
+                        }
+                    },
+
+                    postMedia: function (targetMedia) {
+                        try {
+                            if(!(window.File)) return;
+                            if(!(window.FormData)) return;
+                            var formdata = new FormData ()
+                            var files = targetMedia.files
+                            if (files) {
+                                for (var x = 0; x < files.length; x ++) {
+                                    formdata.append (files[x].name, files[x])
+                                }
+                            }
+                            var XHR = new XMLHttpRequest ()
+                            XHR.onload = function (e) {
+                                console.log (XHR.responseText)
+                            }
+                            XHR.open ("POST" , "http://localhost:8081/")
+                            XHR.send (formdata)
+                        } catch (error) {
+                            console.log (error)
+                        }
+                    },
+
+                    uploadMedia: function () {
+                        let targetMedia = document.querySelector('#mediaUpload')
+                        this.postMedia (targetMedia)
+                    },
+
+                    changeTheme (themeId) {
+                        this.post ({
+                            "POSTID": themeId,
+                            "TOKEN": this.token,
+                        })
+                    },
+
+                    uploadTheme () {
+                        let targetZip = document.querySelector('#themeUpload').value
+                        this.post ({
+                            "UPLOADZIP": targetZip,
+                            "TOKEN": this.token,
+                        })
+                    },
+
+                    puttag: function (body) {
+                        let postarea = document.querySelector(".postarea");
+                        if (this.whetherAddClass === "off") {
+                            body = body.replace(' class=""', '')
+                        }
+                        if (this.whetherAddId === "off") {
+                            body = body.replace(' id=""', '')
+                        }
+                        if (this.whetherAddStyle === "off") {
+                            body = body.replace(' style=""', '')
+                        }
+                        this.postContent = postarea.value.substr(0, postarea.selectionStart) + "\n" + body + "\n" + postarea.value.substr(postarea.selectionStart)
+                    },
+
+                },
+
+                watch: {
+
+                    SITENAME: {
+                        handler: _.debounce (function (value) {
+                            this.post ({
+                                "SITENAME": value,
+                                "TOKEN": this.token,
+                            })
+                        }, 2000)
+                    },
+
+                    USERNAME: {
+                        handler: _.debounce (function (value) {
+                            this.post ({
+                                "USERNAME": value,
+                                "TOKEN": this.token,
+                            })
+                        }, 2000)
+                    },
+
+                    ADDRESS: {
+                        handler: _.debounce (function (value) {
+                            this.post ({
+                                "ADDRESS": value,
+                                "TOKEN": this.token,
+                            })
+                        }, 2000)
+                    },
+
+                    whetherAddClass: {
+                        handler: _.debounce (function (value) {
+                            this.post ({
+                                "whetherAddClass": value,
+                                "TOKEN": this.token,
+                            })
+                        }, 1000)
+                    },
+
+                    whetherAddId: {
+                        handler: _.debounce (function (value) {
+                            this.post ({
+                                "whetherAddId": value,
+                                "TOKEN": this.token,
+                            })
+                        }, 1000)
+                    },
+
+                    whetherAddStyle: {
+                        handler: _.debounce (function (value) {
+                            this.post ({
+                                "whetherAddStyle": value,
+                                "TOKEN": this.token,
+                            })
+                        }, 1000)
+                    },
+
+                    PAGENATION: {
+                        handler: _.debounce (function (value) {
+                            this.post ({
+                                "PAGENATION": value,
+                                "TOKEN": this.token,
+                            })
+                        }, 1000)
+                    },
+
+                    addCategory: {
+                        handler: _.debounce (function (value) {
+                            let message = document.querySelector('#addingCategory')
+                            if (value !== ''){
+                                this.post ({
+                                    "addCategoory": value,
+                                    "TOKEN": this.token,
+                                }, message.querySelector('small'))
+                                this.addCategory = ''
+                                message.classList.add('alert-success')
+                                message.classList.remove('alert-warning')
+                                message.querySelector('h6').innerHTML = '処理が完了しました。'
+                                message.querySelector('small').innerHTML = 'さらなる追加処理の受付が可能です。'
+                            } else {
+                                message.classList.remove('alert-success')
+                                message.classList.add('alert-warning')
+                                message.querySelector('h6').innerHTML = '追加処理は行っていません。'
+                                message.querySelector('small').innerHTML = '追加するには追加したいカテゴリ名を入力して5秒後に追加処理が走ります。'
+                            }
+                        }, 5000)
+                    },
+
+                    removeCategory: {
+                        handler: _.debounce (function (value) {
+                            let message = document.querySelector('#removingCategory')
+                            if (value !== ''){
+                                this.post ({
+                                    "removeCategoory": value,
+                                    "TOKEN": this.token,
+                                }, message.querySelector('small'))
+                                this.removeCategory = ''
+                                message.classList.add('alert-success')
+                                message.classList.remove('alert-warning')
+                                message.querySelector('h6').innerHTML = '処理が完了しました。'
+                                message.querySelector('small').innerHTML = 'さらなる削除処理の受付が可能です。'
+                            } else {
+                                message.classList.remove('alert-success')
+                                message.classList.add('alert-warning')
+                                message.querySelector('h6').innerHTML = '削除処理は行っていません。'
+                                message.querySelector('small').innerHTML = '削除するには削除したいカテゴリ名を入力して5秒後に削除処理が走ります。'
+                            }
+                        }, 5000)
+                    },
+
+                    UriRule: {
+                        handler: _.debounce (function (value) {
+                            this.post ({
+                                "UriRule": value,
+                                "TOKEN": this.token,
+                            })
+                        }, 1000)
+                    },
+
+                },
+
+            })
+
+        </script>
+    </body>
+</html>

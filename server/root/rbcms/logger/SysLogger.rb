@@ -26,4 +26,9 @@ class SysLogger < Logger
         logger = self.getInstance(self.fileopen('root/log/debug.log'))
         logger.debug body
     end
+
+    def self.loadfile body
+        logger = self.getInstance(self.fileopen('root/log/loadfile.log'))
+        logger.info body
+    end
 end

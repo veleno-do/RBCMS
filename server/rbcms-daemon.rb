@@ -3,7 +3,7 @@ require "socket"
 server = TCPServer.open(80)
 
 loop do
-    Thread.new( server.accept ) do |socket|
+    Thread.new(server.accept) do |socket|
         load "#{ENV['HOME']}/root/rbcms/autoloader.rb"
         begin
             app             = App.create socket

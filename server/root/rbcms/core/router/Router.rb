@@ -1,6 +1,6 @@
 module RouterInterface
     # uri を基にルーティングをし、コントローラーとオプションを返します
-    def self.run uri
+    def self.run(uri, method)
         raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
     end
 end
@@ -14,10 +14,11 @@ class Router
     end
 
     def getController
-        result = nil
+        result = ""
         begin
             tables.each do |table|
-                if uri.to_s.match(table["rule"]).nil? ? false : true && method == table["method"] then result = table["controller"]
+                urimatch = uri.to_s.match(table["rule"]).nil? ? false : true
+                if urimatch && method == table["method"] then result = table["controller"] end
             end
         rescue => exception
             SysLogger.error exception.message

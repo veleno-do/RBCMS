@@ -1,9 +1,4 @@
 module AccessGateInterface
-    # AccessGate.new したインスタンスを返します
-    def examinor
-        raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
-    end
-
     # アクセス可能か判断します。
     def whether
         raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
@@ -12,17 +7,13 @@ end
 
 class AccessGate
     include AccessGateInterface
-    attr_reader :resource
+    attr_reader :env
     public
-    def examinor
-        
-    end
-
     def whether
-        
+        true
     end
 
-    def initialize resource
-        @resource = resource
+    def initialize env
+        @env = env
     end
 end

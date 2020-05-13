@@ -1,5 +1,5 @@
 class App
-    attr_reader :parsedRequest, :socket, :request, :getresponse, :postresponse
+    attr_reader :parsedRequest, :socket, :request
     public
     def self.create socket
         self.new socket
