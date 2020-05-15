@@ -1,23 +1,32 @@
 module FrontControllerInterface
-    # コントローラーを実行します。
-    def exec opt
+    def exec
         raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
     end
 end
 
 class FrontController
     include FrontControllerInterface
-    attr_reader
+    attr_reader :opt
     public
-    def exec opt
-        return 0
+    def exec
+        response = String.new
+        begin
+            if Installer.firstaccess? then response = StartController.start else response = getResponse end
+        rescue => exception
+            SysLogger.error exception.message
+        ensure
+           return response
+        end
     end
 
-    def index
-        "index"
+    def getResponse
+        {
+            "status" => 200,
+            "body"   => "blogtop"
+        }
     end
 
-    def initialize
-        
+    def initialize opt
+       @opt = opt
     end
 end

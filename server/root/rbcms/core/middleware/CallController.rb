@@ -14,12 +14,10 @@ class CallController
 
     def controller
         begin
-            name = FrontController
-            result = name.new.index
+            result = router.new(opt).exec
         rescue => exception
             SysLogger.error exception.message
         ensure
-            SysLogger.debug result.to_s
             return result
         end
     end

@@ -1,12 +1,11 @@
-require 'net/http'
+module LocationInterface
+    def self.get uri
+        raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
+    end
+end
 
 class Location
-    def self.to url
-        url = URI.parse(url)
-        req = Net::HTTP::Get.new(url.path)
-        res = Net::HTTP.start(url.host, url.port) {|http|
-          http.request(req)
-        }
-        puts res.body
+    def self.get uri
+        return "Location: #{uri}"
     end
 end

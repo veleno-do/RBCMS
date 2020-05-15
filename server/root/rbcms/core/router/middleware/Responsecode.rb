@@ -13,7 +13,10 @@ class Responsecode
     def self.get responsenum
         case responsenum
         when 200 then return self.code200
-        when 204 then return self.code201
+        when 201 then return self.code201
+        when 204 then return self.code204
+        when 303 then return self.code303
+        when 301 then return self.code301
         when 400 then return self.code400
         when 401 then return self.code401
         when 403 then return self.code403
@@ -25,8 +28,20 @@ class Responsecode
         "#{@@html} 200 OK"
     end
 
+    def self.code201
+        "#{@@html} 201 Created"
+    end
+
     def self.code204
         "#{@@html} 204 No Content"
+    end
+
+    def self.code301
+        "#{@@html} 301 Moved Permanently"
+    end
+
+    def self.code303
+        "#{@@html} 303 See Other"
     end
 
     def self.code400

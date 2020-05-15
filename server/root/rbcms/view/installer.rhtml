@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        <title>RBCMS - インストーラー</title>
+    </head>
+    <body>
+        <div id="app" class="bg-light" style="height:100vh;width:100%;overflow:hidden;">
+            
+            <section class="row d-flex justify-content-center align-items-center h-100 w-100">
+
+                <div class="col-5 text-center bg-light rounded">
+                    <h3>RBCMS</h3>
+                    <small class="text-secondary">{{topMessage}}</small>
+
+                    <hr>
+
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert" v-show="alert">
+                        <strong>エラー</strong>: {{alert}}
+                    </div>
+
+                    <div class="form-group" v-show="phase1">
+                        <label for="USERNAME">ユーザー名</label>
+                        <small class="text-danger" v-if="messageUsername">{{messageUsername}}</small>
+                        <input type="text" id="USERNAME" class="form-control text-center" placeholder="ユーザー名を入力" v-model="USERNAME" />
+                        <small class="form-text text-muted text-secondary">半角英数字とアンダースコアのみ使用できます。ユーザー名は後からでも変更することができます。</small>
+                    </div>
+
+                    <div class="form-group" v-show="phase1">
+                        <label for="PASSWORD">パスワード</label>
+                        <small class="text-danger" v-if="messagePassword">{{messagePassword}}</small>
+                        <input type="password" id="PASSWORD" class="form-control text-center" placeholder="パスワードを入力" v-model="PASSWORD" />
+                        <small class="form-text text-muted text-secondary">半角英数字アンダースコア8文字以上30文字未満。ハイフンなどの記号は使用不可です。<br><u class="text-danger">パスワードは後から変更できません。</u></small>
+                    </div>
+
+                    <div class="form-group" v-show="phase2">
+                        <label for="ADDRESS">メールアドレス</label>
+                        <small class="text-danger" v-if="messageAddress">{{messageAddress}}</small>
+                        <input type="email" id="ADDRESS" class="form-control text-center" placeholder="メールアドレスを入力" v-model="ADDRESS" />
+                        <small class="form-text text-muted text-secondary">管理者のメールアドレスを設定します。メールアドレスは後から変更できます。</small>
+                    </div>
+
+                    <a href="javascript:void(0)" class="btn btn-primary form-control mb-4" target="" v-on:click="back" v-show="phase2">戻る</a>
+
+                    <a href="javascript:void(0)" class="btn btn-primary form-control" target="" v-on:click="finish" v-show="phase1 || phase2">{{button}}</a>
+                </div>
+
+            </section>
+
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        
+        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+        <script>
+
+            let app = new Vue ({
+
+                el: "#app",
+
+                data: {
+                    USERNAME: "",
+                    PASSWORD: "",
+                    ADDRESS: "",
+
+                    token: "<%= token %>",
+
+                    phase1: true,
+                    phase2: false,
+
+                    topMessage: "ようこそ、RBCMSをインストールします。",
+                    
+                    alert: "",
+                },
+
+                computed: {
+
+                    messageUsername: function () {
+                        const regexUsername = new RegExp (/^\w+$/)
+                        if (regexUsername.test (this.USERNAME)) {
+                            return "利用できます。"
+                        } else if (this.USERNAME) {
+                            return "利用できません。"
+                        }
+                    },
+
+                    messagePassword: function () {
+                        const regexPassword = new RegExp (/^\w{8,30}$/)
+                        if (regexPassword.test (this.PASSWORD)) {
+                            return "利用できます。"
+                        } else if (this.PASSWORD) {
+                            return "利用できません。"
+                        }
+                    },
+
+                    messageAddress: function () {
+                        const regexAddress = new RegExp (/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/)
+                        if (regexAddress.test (this.ADDRESS)) {
+                            return "利用できます。"
+                        } else if (this.ADDRESS) {
+                            return "利用できません。"
+                        }
+                    },
+
+                    button: function () {
+                        if (this.phase1) {
+                            return "次へ"
+                        } else {
+                            return "インストール"
+                        }
+                    },
+
+                },
+
+                methods: {
+                    
+                    finish: function () {
+                        if (this.phase1) {
+                            const regexUsername = new RegExp (/^\w+$/)
+                            const regexPassword = new RegExp (/^\w{8,30}$/)
+                            if (regexUsername.test (this.USERNAME) && regexPassword.test (this.PASSWORD)) {
+                                this.phase1 = false
+                                this.alertReset ()
+                                this.phase2 = true
+                            } else {
+                                this.alert = "正しいユーザー名とパスワードを入力して下さい。"
+                            }
+                        } else if (this.phase2) {
+                            const regexAddress = new RegExp (/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/)
+                            if (regexAddress.test (this.ADDRESS)) {
+                                this.phase2 = false
+                                this.alertReset ()
+                                this.install ()
+                            } else {
+                                this.alert = "正しいメールアドレスを入力して下さい。"
+                            }
+                        }
+                    },
+
+                    back: function () {
+                        this.phase1 = true
+                        this.phase2 = false
+                        this.alertReset ()
+                    },
+
+                    alertReset: function () {
+                        this.alert = ""
+                    },
+
+                    install: function () {
+                        this.topMessage = "インストールしています・・・"
+                        try {
+                            var xhr = new XMLHttpRequest ()
+                            var postdata = "USERNAME=" + this.USERNAME + "&PASSWORD=" + this.PASSWORD + "&ADDRESS=" + this.ADDRESS + "&TOKEN=" + this.token
+                            xhr.onreadystatechange = function () {
+                                var READYSTATE_COMPLETED = 4
+                                var HTTP_STATUS_OK = 200
+                                if (this.readyState == READYSTATE_COMPLETED && this.status == HTTP_STATUS_OK) {
+                                    location.href = '/login';
+                                }
+                            }
+                            xhr.open ("POST","/admin/install",true)
+                            xhr.setRequestHeader ("Content-Type","application/x-www-form-urlencoded")
+                            xhr.send (postdata)
+                        } catch (exception) {
+                            console.log (exception)
+                        }
+                    }
+
+                }
+
+            })
+
+        </script>
+    </body>
+</html>

@@ -1,18 +1,20 @@
-module FrontSearchControllerInterface
+module AdminLoginControllerInterface
     def exec
         raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
     end
 end
 
-class FrontSearchController
-    include FrontSearchControllerInterface
+class AdminLoginController
+    include AdminLoginControllerInterface
     attr_reader :opt
     public
     def exec
-        "FrontSearch"
+        {
+            "status" => 400,
+        }
     end
 
     def initialize opt
-       @opt = opt
+        @opt = opt
     end
 end

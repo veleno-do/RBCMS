@@ -1,5 +1,3 @@
-require 'logger'
-
 class SysLogger < Logger
     public
     def self.getInstance file

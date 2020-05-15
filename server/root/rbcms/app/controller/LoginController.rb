@@ -1,27 +1,26 @@
-module AdminIndexControllerInterface
+module LoginControllerInterface
     def exec
         raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
     end
 end
 
-class AdminIndexController
-    include AdminIndexControllerInterface
-    attr_reader :opt
+class LoginController
+    include LoginControllerInterface
     public
     def exec
         {
             "status" => 200,
             "Contenttype" => "html",
             "body" => View.render(
-                'console.rhtml',
+                'login.rhtml',
                 {
-                    :token => Token.set
-                }
-            )
+                    :token => Token.set,
+                },
+            ),
         }
     end
 
     def initialize opt
-       @opt = opt
+        @opt = opt
     end
 end

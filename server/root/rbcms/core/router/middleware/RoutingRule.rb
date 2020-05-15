@@ -16,9 +16,24 @@ class RoutingRule
                 "method"        => "GET",
             },
             {
+                "controller"    => LoginController,
+                "rule"          => /^\/login$/,
+                "method"        => "GET",
+            },
+            {
+                "controller"    => AdminLoginController,
+                "rule"          => /^\/admin\/login$/,
+                "method"        => "POST",
+            },
+            {
                 "controller"    => AdminIndexController,
                 "rule"          => /^\/admin$/,
                 "method"        => "GET",
+            },
+            {
+                "controller"    => AdminInstallController,
+                "rule"          => /^\/admin\/install$/,
+                "method"        => "POST"
             },
             {
                 "contoller"     => AdminPostController,
@@ -37,17 +52,17 @@ class RoutingRule
             },
             {
                 "controller"    => IndividualController,
-                "rule"          => /^\/post\//,
+                "rule"          => /^\/post\/\w+$/,
                 "method"        => "GET",
             },
             {
                 "controller"    => FrontCategoryController,
-                "rule"          => /^\/category\//,
+                "rule"          => /^\/category\/\w+$/,
                 "method"        => "GET",
             },
             {
                 "controller"    => FrontDateController,
-                "rule"          => /^\/date\/\d+/,
+                "rule"          => /^\/date\/\d+$/,
                 "method"        => "GET",
             },
             {

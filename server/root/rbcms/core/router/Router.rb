@@ -14,7 +14,7 @@ class Router
     end
 
     def getController
-        result = ""
+        result = String.new
         begin
             tables.each do |table|
                 urimatch = uri.to_s.match(table["rule"]).nil? ? false : true
