@@ -1,5 +1,5 @@
 class Env
-    attr_reader :defaults, :Method, :Uri, :Protocol, :Host, :Connection, :ContentLength, :CacheControl, :UpgradeInsecureRequests, :Origin, :ContentType, :UserAgent, :Accept, :SecFetchSite, :SecFetchMode, :SecFetchUser, :SecFetchDest, :Referer, :AcceptEncoding, :AcceptLanguage, :Posted
+    attr_reader :defaults, :Method, :Uri, :Protocol, :Host, :Connection, :ContentLength, :CacheControl, :UpgradeInsecureRequests, :Origin, :ContentType, :UserAgent, :Accept, :SecFetchSite, :SecFetchMode, :SecFetchUser, :SecFetchDest, :Referer, :AcceptEncoding, :AcceptLanguage, :Cookie, :Posted
     public
     def defaults
         {
@@ -22,6 +22,7 @@ class Env
             :Referer                    => "",
             :AcceptEncoding             => "gzip, deflate, br",
             :AcceptLanguage             => "ja,en-US;q=0.9,en;q=0.8",
+            :Cookie                     => "",
             :Posted                     => "",
         }
     end
@@ -47,6 +48,7 @@ class Env
         @Referer                        = arr[:Referer]
         @AcceptEncoding                 = arr[:AcceptEncoding]
         @AcceptLanguage                 = arr[:AcceptLanguage]
+        @Cookie                         = arr[:Cookie]
         @Posted                         = arr[:Posted]
     end
 end

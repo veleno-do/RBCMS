@@ -12,6 +12,7 @@ class AdminLoginController
         if Auth.authentication opt.Posted
             return {
                 "status" => 200,
+                "Cookie" => Session.set
             }
         else
             return {

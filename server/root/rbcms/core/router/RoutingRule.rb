@@ -26,6 +26,11 @@ class RoutingRule
                 "method"        => "POST",
             },
             {
+                "controller"    => AdminLogoutController,
+                "rule"          => /^\/admin\/logout$/,
+                "method"        => "GET",
+            },
+            {
                 "controller"    => AdminIndexController,
                 "rule"          => /^\/admin$/,
                 "method"        => "GET",

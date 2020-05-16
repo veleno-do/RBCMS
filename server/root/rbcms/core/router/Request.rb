@@ -74,7 +74,7 @@ class Request
     end
 
     def getCookie
-        if !response["Cookie"].nil? then return "#{Cookie.get response["Cookie"]}\r\n" else return "" end
+        if !response["Cookie"].nil? then return "#{Cookie.set response["Cookie"]}\r\n" else return "" end
     end
 
     def getResponseBody
