@@ -26,6 +26,8 @@ class AdminIndexController
                         :whetherAddStyle => admin["whetherAddStyle"],
                         :pagenation => admin["pagenation"],
                         :uriRule => admin["uriRule"],
+                        :article => admin["article"],
+                        :categories => admin["categories"],
                     }
                 )
             }

@@ -16,6 +16,11 @@ class RoutingRule
                 "method"        => "GET",
             },
             {
+                "controller"    => AdminInstallController,
+                "rule"          => /^\/admin\/install$/,
+                "method"        => "POST"
+            },
+            {
                 "controller"    => LoginController,
                 "rule"          => /^\/login$/,
                 "method"        => "GET",
@@ -36,11 +41,6 @@ class RoutingRule
                 "method"        => "GET",
             },
             {
-                "controller"    => AdminInstallController,
-                "rule"          => /^\/admin\/install$/,
-                "method"        => "POST"
-            },
-            {
                 "controller"    => AdminPostController,
                 "rule"          => /^\/admin\/post$/,
                 "method"        => "POST",
@@ -48,6 +48,26 @@ class RoutingRule
             {
                 "controller"    => AdminArticleController,
                 "rule"          => /^\/admin\/article$/,
+                "method"        => "POST",
+            },
+            {
+                "controller"    => AdminAddCategoryController,
+                "rule"          => /^\/admin\/addcategory$/,
+                "method"        => "POST",
+            },
+            {
+                "controller"    => AdminRemoveCategoryController,
+                "rule"          => /^\/admin\/removecategory$/,
+                "method"        => "POST",
+            },
+            {
+                "controller"    => AdminChangeThemeController,
+                "rule"          => /^\/admin\/changetheme$/,
+                "method"        => "POST",
+            },
+            {
+                "controller"    => AdminUploadArticleController,
+                "rule"          => /^\/admin\/upload\/article$/,
                 "method"        => "POST",
             },
             {

@@ -36,10 +36,11 @@ class Installer
 
     def self.default datas
         begin
-            settings = GDBM.new('db/settings.db')
-            posts = GDBM.new('db/posts.db')
-            medias = GDBM.new('db/medias.db')
-            comments = GDBM.new('db/comments.db')
+            settings = GDBM.new('db/settings.db',flags=GDBM::NEWDB)
+            default = GDBM.new('db/postdata/default.db',flags=GDBM::NEWDB)
+            categories = GDBM.new('db/categories.db',flags=GDBM::NEWDB)
+            medias = GDBM.new('db/medias.db',flags=GDBM::NEWDB)
+            comments = GDBM.new('db/comments.db',flags=GDBM::NEWDB)
 
             settings["username"] = datas["username"]
             settings["password"] = datas["password"]
@@ -51,16 +52,17 @@ class Installer
             settings["pagenation"] = "5"
             settings["uriRule"] = ""
 
-            posts[1] = {
-                "postTitle" => "Hello, world",
-                "postId" => "helloWorld",
-                "postStyle" => "",
-                "postContent" => "こんにちは、最初の投稿です。削除してRBCMSを始めましょう。",
-                "postCategory" => "なし",
-            },
+            default["postTitle"] = "Hello, world"
+            default["postId"] = "helloWorld"
+            default["postStyle"] = ""
+            default["postContent"] = "こんにちは、最初の投稿です。削除してRBCMSを始めましょう。"
+            default["postCategory"] = "なし"
+
+            categories["なし"] = String.new
 
             settings.close
-            posts.close
+            default.close
+            categories.close
             medias.close
             comments.close
         rescue => exception
