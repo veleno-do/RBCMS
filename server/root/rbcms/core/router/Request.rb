@@ -83,6 +83,6 @@ class Request
 
     def initialize socket
         @env = Analysisor.run socket
-        @response = AccessGate.new(env).run
+        @response = AccessGate.new(env).start
     end
 end

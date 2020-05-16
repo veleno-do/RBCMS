@@ -9,9 +9,15 @@ class AdminLoginController
     attr_reader :opt
     public
     def exec
-        {
-            "status" => 400,
-        }
+        if Auth.authentication opt.Posted
+            return {
+                "status" => 200,
+            }
+        else
+            return {
+                "status" => 400,
+            }
+        end
     end
 
     def initialize opt

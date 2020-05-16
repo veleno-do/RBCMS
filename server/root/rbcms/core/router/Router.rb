@@ -14,11 +14,10 @@ class Router
     end
 
     def getController
-        result = String.new
+        result = nil
         begin
             tables.each do |table|
-                urimatch = uri.to_s.match(table["rule"]).nil? ? false : true
-                if urimatch && method == table["method"] then result = table["controller"] end
+                if (uri.to_s.match(table["rule"]).nil? ? false : true) && method == table["method"] then result = table["controller"] end
             end
         rescue => exception
             SysLogger.error exception.message

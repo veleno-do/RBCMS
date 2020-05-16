@@ -12,7 +12,7 @@ class SetToken
         token = SecureRandom.hex(32)
         begin
             tokendb = GDBM.new('db/token.db',flags = GDBM::NEWDB)
-            tokendb["TOKEN"] = token
+            tokendb["token"] = token
             token.close
         rescue => exception
             Syslogger.error exception.message

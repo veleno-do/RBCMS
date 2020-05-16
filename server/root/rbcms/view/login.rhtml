@@ -25,14 +25,14 @@
                     <div class="form-group" v-show="!loginFlag">
                         <label for="USERNAME">ユーザー名</label>
                         <small class="text-danger" v-if="messageUsername">{{messageUsername}}</small>
-                        <input type="text" id="USERNAME" class="form-control text-center" placeholder="ユーザー名を入力" v-model="USERNAME" />
+                        <input type="text" id="USERNAME" class="form-control text-center" placeholder="ユーザー名を入力" v-model="username" />
                         <small class="form-text text-muted text-secondary"></small>
                     </div>
 
                     <div class="form-group" v-show="!loginFlag">
                         <label for="PASSWORD">パスワード</label>
                         <small class="text-danger" v-if="messagePassword">{{messagePassword}}</small>
-                        <input type="password" id="PASSWORD" class="form-control text-center" placeholder="パスワードを入力" v-model="PASSWORD" />
+                        <input type="password" id="PASSWORD" class="form-control text-center" placeholder="パスワードを入力" v-model="password" />
                         <small class="form-text text-muted text-secondary"></small>
                     </div>
 
@@ -57,8 +57,8 @@
 
                 data: {
 
-                    USERNAME: "",
-                    PASSWORD: "",
+                    username: "",
+                    password: "",
 
                     alert: "",
 
@@ -74,18 +74,18 @@
 
                     messageUsername: function () {
                         const regexUsername = new RegExp (/^\w+$/)
-                        if (regexUsername.test (this.USERNAME)) {
+                        if (regexUsername.test (this.username)) {
                             return "正しいユーザー名です。"
-                        } else if (this.USERNAME) {
+                        } else if (this.username) {
                             return "正しいユーザー名ではありません。"
                         }
                     },
 
                     messagePassword: function () {
                         const regexPassword = new RegExp (/^\w{8,30}$/)
-                        if (regexPassword.test (this.PASSWORD)) {
+                        if (regexPassword.test (this.password)) {
                             return "正しいパスワードです。"
-                        } else if (this.PASSWORD) {
+                        } else if (this.password) {
                             return "正しいパスワードではありません。"
                         }
                     }
@@ -97,13 +97,13 @@
                     login: function () {
                         const regexUsername = new RegExp (/^\w+$/)
                         const regexPassword = new RegExp (/^\w{8,30}$/)
-                        if (regexUsername.test (this.USERNAME) && regexPassword.test (this.PASSWORD)) {
+                        if (regexUsername.test (this.username) && regexPassword.test (this.password)) {
                             this.topMessage = "ログインしています・・・画面がこのまま変わらない場合はもう一度お試しください。"
                             this.loginFlag = true
                             try {
                                 var that = this
                                 var xhr = new XMLHttpRequest ()
-                                var postdata = "USERNAME=" + this.USERNAME + "&PASSWORD=" + this.PASSWORD + "&TOKEN=" + this.token
+                                var postdata = "username=" + this.username + "&password=" + this.password + "&token=" + this.token
                                 xhr.onreadystatechange = function () {
                                     var READYSTATE_COMPLETED = 4
                                     var HTTP_STATUS_OK = 200

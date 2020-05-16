@@ -9,10 +9,6 @@ class AccessGate
     include AccessGateInterface
     attr_reader :env, :router
     public
-    def run
-        start
-    end
-
     def start
         CallController.run(router, env)
     end

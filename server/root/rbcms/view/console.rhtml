@@ -15,11 +15,11 @@
             <div class="position-fixed w-100 bg-light shadow border-bottom" style="z-index:100;display:flex;align-items:center;">
 
                 <div class="col-6" style="overflow-x:hidden;">
-                    <h3 class="py-1"><a href="" target="" style="white-space:nowrap;">{{SITENAME}}</a></h3>
+                    <h3 class="py-1"><a href="" target="" style="white-space:nowrap;">{{sitename}}</a></h3>
                 </div>
                 <div class="col-6">
                     <div class="list-group list-group-horizontal ml-auto" style="width:fit-content;">
-                        <a href="javascript:void(0)" target="" class="list-group-item border-0 small">{{USERNAME}}</a>
+                        <a href="javascript:void(0)" target="" class="list-group-item border-0 small">{{username}}</a>
                         <a href="" target="" class="list-group-item border-0 small">ログアウト</a>
                     </div>
                 </div> 
@@ -69,7 +69,7 @@
                                                     <h4 class="mb-0">RBCMS - コンソール</h4>
                                                 </div>
                                                 <div class="card-body">
-                                                    <h5 class="card-title">こんにちは、ユーザー名</h5>
+                                                    <h5 class="card-title">こんにちは、{{username}}</h5>
                                                     <div class="d-flex justify-content-between align-items-start">
                                                         <ul class="list-group">
                                                             <li class="list-group-item border-0 bg-light py-1"><a data-toggle="list" href="#list-post" role="tab" aria-controls="list-post">記事を投稿する</a></li>
@@ -290,19 +290,19 @@
 
                                     <div class="form-group mb-4">
                                         <label for="changeSitename">サイト名の変更</label>
-                                        <input type="text" class="form-control" id="changeSitename" aria-describedby="change-sitename" placeholder="サイト名を入力" v-model="SITENAME" >
+                                        <input type="text" class="form-control" id="changeSitename" aria-describedby="change-sitename" placeholder="サイト名を入力" v-model="sitename" >
                                         <small id="change-sitename" class="form-text text-muted">コンソールのヘッダ左に表示されます。</small>
                                     </div>
 
                                     <div class="form-group mb-4">
                                         <label for="changeUsername">ユーザー名の変更</label>
-                                        <input type="text" class="form-control" id="changeUsername" aria-describedby="change-username" placeholder="ユーザー名を入力" v-model="USERNAME" >
+                                        <input type="text" class="form-control" id="changeUsername" aria-describedby="change-username" placeholder="ユーザー名を入力" v-model="username" >
                                         <small id="change-username" class="form-text text-muted">コンソールのヘッダ右に表示されます。</small>
                                     </div>
 
                                     <div class="form-group mb-4">
                                         <label for="changeAddress">設定メールアドレスの変更</label>
-                                        <input type="email" class="form-control" id="changeAddress" aria-describedby="change-email" placeholder="メールアドレスを入力" v-model="ADDRESS" >
+                                        <input type="email" class="form-control" id="changeAddress" aria-describedby="change-email" placeholder="メールアドレスを入力" v-model="address" >
                                         <small id="change-email" class="form-text text-muted">管理者の連絡先を設定します。</small>
                                     </div>
 
@@ -335,7 +335,7 @@
 
                                     <div class="form-group mb-4">
                                         <label for="articlesPerPage">一ページあたりに表示する記事の数</label>
-                                        <select class="form-control" id="articlesPerPage" aria-describedby="articles-per-page" v-model="PAGENATION" >
+                                        <select class="form-control" id="articlesPerPage" aria-describedby="articles-per-page" v-model="pagenation" >
                                             <option>3</option>
                                             <option>4</option>
                                             <option>5</option>
@@ -353,10 +353,10 @@
                                         <div id="addingCategory" class="alert alert-warning alert-dismissible fade show" role="alert">
                                             <h6 class="alert-heading mb-0">追加処理は行っていません。</h6>
                                             <hr>
-                                            <p class="mb-0"><small>追加するには追加したいカテゴリ名を入力して10秒後に追加処理が走ります。</small></p>
+                                            <p class="mb-0"><small>追加するには追加したいカテゴリ名を入力して5秒後に追加処理が走ります。</small></p>
                                         </div>
                                         <input type="text" class="form-control" id="addArticleCategory" aria-describedby="add-article-category" placeholder="カテゴリ名を入力" v-model="addCategory" >
-                                        <small id="add-article-category" class="form-text text-muted">カテゴリ名はURIにも使われます。入力が終わって10秒後に追加処理が完了します。完了するまでは、文字をそのままにしてください。キャンセルしたい場合は、10秒経つ前に文字を全て削除してください。</small>
+                                        <small id="add-article-category" class="form-text text-muted">カテゴリ名はURIにも使われます。入力が終わって5秒後に追加処理が完了します。完了するまでは、文字をそのままにしてください。キャンセルしたい場合は、5秒経つ前に文字を全て削除してください。</small>
                                     </div>
 
                                     <div class="form-group mb-4">
@@ -367,12 +367,12 @@
                                             <p class="mb-0"><small>削除するには削除したいカテゴリ名を入力して5秒後に削除処理が走ります。</small></p>
                                         </div>
                                         <input type="text" class="form-control" id="removeArticleCategory" aria-describedby="remove-article-category" placeholder="カテゴリ名を入力" v-model="removeCategory" >
-                                        <small id="remove-article-category" class="form-text text-muted">入力が終わって5秒後に削除処理が完了します。完了するまでは、文字をそのままにしてください。キャンセルしたい場合は、10秒経つ前に文字を全て削除してください。</small>
+                                        <small id="remove-article-category" class="form-text text-muted">入力が終わって5秒後に削除処理が完了します。完了するまでは、文字をそのままにしてください。キャンセルしたい場合は、5秒経つ前に文字を全て削除してください。</small>
                                     </div>
 
                                     <div class="form-group mb-4">
                                         <label for="changeUriRule">URIをカスタマイズ</label>
-                                        <input type="text" class="form-control" id="changeUriRule" aria-describedby="change-uri-rule" placeholder="/正規表現を入力/" v-model="UriRule" >
+                                        <input type="text" class="form-control" id="changeUriRule" aria-describedby="change-uri-rule" placeholder="/正規表現を入力/" v-model="uriRule" >
                                         <small id="change-uri-rule" class="form-text text-muted">サイトのURLに変更を加えます。文法に誤りがある場合、正常に動作しない恐れがあるので、基本変更しないことをお勧めします。</small>
                                         <dl>
                                             <dt><small>文法</small></dt>
@@ -410,20 +410,22 @@
                 el: "#app",
                 
                 data: {
-                    SITENAME: "Blog",
-                    USERNAME: "default",
-                    ADDRESS: "example.email",
+                    sitename: "<%= sitename %>",
+                    username: "<%= username %>",
+                    address: "<%= address %>",
 
-                    whetherAddClass: "on",
-                    whetherAddId: "on",
-                    whetherAddStyle: "on",
+                    whetherAddClass: "<%= whetherAddClass %>",
+                    whetherAddId: "<%= whetherAddId %>",
+                    whetherAddStyle: "<%= whetherAddStyle %>",
 
-                    PAGENATION: "3",
+                    pagenation: "<%= pagenation %>",
 
                     addCategory: "",
                     removeCategory: "",
 
-                    UriRule: "",
+                    uriRule: "<%= urirule %>",
+
+                    token: "<%= token %>",
 
                     head: "ダッシュボード",
 
@@ -462,8 +464,6 @@
                         { tagName: "div", body: `<div id="" class="" style=""></div>` },{ tagName: "h2", body: `<h2 id="" class="" style=""></h2>` },{ tagName: "h3", body: `<h3 id="" class="" style=""></h3>` },{ tagName: "h4", body: `<h4 id="" class="" style=""></h4>` },{ tagName: "h5", body: `<h5 id="" class="" style=""></h5>` },{ tagName: "h6", body: `<h6 id="" class="" style=""></h6>` },{ tagName: "p", body: `<p id="" class="" style=""></p>` },{ tagName: "span", body: `<span id="" class="" style=""></span>` },{ tagName: "address", body: `<address></address>` },{ tagName: "br", body: `<br>` },{ tagName: "a", body: `<a href="" id="" class="" style=""></a>` },{ tagName: "em", body: `<em></em>` },{ tagName: "strong", body: `<strong></strong>` },{ tagName: "del", body: `<del></del>` },{ tagName: "ins", body: `<ins></ins>` },{ tagName: "abbr", body: `<abbr></abbr>` },{ tagName: "acronym", body: `<acronym></acronym>` },{ tagName: "dfn", body: `<dfn></dfn>` },{ tagName: "blockquote", body: `<blockquote></blockquote>` },{ tagName: "q", body: `<q></q>` },{ tagName: "cite", body: `<cite></cite>` },{ tagName: "sup", body: `<sup></sup>` },{ tagName: "sub", body: `<sub></sub>` },{ tagName: "pre", body: `<pre></pre>` },{ tagName: "code", body: `<code></code>` },{ tagName: "var", body: `<var></var>` },{ tagName: "kbd", body: `<kbd></kbd>` },{ tagName: "samp", body: `<samp></samp>` },{ tagName: "bdo", body: `<bdo dir=""></bdo>` },{ tagName: "font", body: `<font face="" size="" color=""></font>` },{ tagName: "basefont", body: `<basefont face="" size=""></basefont>` },{ tagName: "big", body: `<big></big>` },{ tagName: "small", body: `<small></small>` },{ tagName: "b", body: `<b></b>` },{ tagName: "i", body: `<i></i>` },{ tagName: "strike", body: `<strike></strike>` },{ tagName: "u", body: `<u></u>` },{ tagName: "tt", body: `<tt></tt>` },{ tagName: "center", body: `<center></center>` },{ tagName: "hr", body: `<hr size="" width="" color="" />` },{ tagName: "ul", body: `<ul id="" class="" style=""></ul>` },{ tagName: "ol", body: `<ol id="" class="" style=""></ol>` },{ tagName: "li", body: `<li id="" class="" style=""></li>` },{ tagName: "dl", body: `<dl id="" class="" style=""></dl>` },{ tagName: "dt", body: `<dt id="" class="" style=""></dt>` },{ tagName: "dd", body: `<dd id="" class="" style=""></dd>` },{ tagName: "dir", body: `<dir id="" class="" style=""></dir>` },{ tagName: "menu", body: `<menu id="" class="" style=""></menu>` },{ tagName: "img", body: `<img src="" width="" height="" id="" class="" style="" />` },{ tagName: "map", body: `<map name="" />` },{ tagName: "area", body: `<area href="" shape="" alt="" coords="" id="" class="" style="" />` },{ tagName: "object", body: `<object data="" type="" width="" height="" name=""></object>` },{ tagName: "table", body: `<table id="" class="" style=""></table>` },{ tagName: "caption", body: `<caption></caption>` },{ tagName: "thead", body: `<thead id="" class="" style=""></thead>` },{ tagName: "tbody", body: `<tbody id="" class="" style=""></tbody>` },{ tagName: "tfoot", body: `<tfoot id="" class="" style=""></tfoot>` },{ tagName: "colgroup", body: `<colgroup width="" align="" valign="" char="" charoff="" />` },{ tagName: "col", body: `<col width="" align="" valign="" char="" charoff="" />` },{ tagName: "tr", body: `<tr id="" class="" style=""></tr>` },{ tagName: "th", body: `<th width="" align="" valign="" char="" charoff="" bgcolor="" id="" class="" style=""></th>` },{ tagName: "td", body: `<td width="" align="" valign="" char="" charoff="" bgcolor="" id="" class="" style=""></td>` },{ tagName: "iframe", body: `<iframe src="" name="" width="" height="" id="" class="" style=""></iframe>` },{ tagName: "form", body: `<form action="" method="" enctype="" accept-charset="" accept="" name="" target="" id="" class="" style=""></form>` },{ tagName: "input", body: `<input type="" name="" value="" size="" maxlength="" id="" class="" style="" />` },{ tagName: "textarea", body: `<textarea name="" rows="" cols="" id="" class="" style=""></textarea>` },{ tagName: "select", body: `<select name="" id="" class="" style=""></select>` },{ tagName: "option", body: `<option id="" class="" style=""></option>` },{ tagName: "optgroup", body: `<optgroup label=""></optgroup>` },{ tagName: "button", body: `<button type="" onclick="" value="" id="" class="" style=""></button>` },{ tagName: "label", body: `<label for="" id="" class="" style=""></label>` },{ tagName: "fieldset", body: `<fieldset></fieldset>` },{ tagName: "legend", body: `<legend></legend>` },
                     ],
 
-                    token: "abc",
-
                     postTitle: "",
                     postId: "",
                     postStyle: "",
@@ -484,8 +484,8 @@
                             var postdata = ''
                             XHR.onreadystatechange = function () {
                                 var READYSTATE_COMPLETED = 4
-                                var HTTP_STATUS_OK = 200
-                                if (this.readyState == READYSTATE_COMPLETED && this.status == HTTP_STATUS_OK && resel !== null) {
+                                var HTTP_STATUS_FAIL = 400
+                                if (this.readyState == READYSTATE_COMPLETED && this.status == HTTP_STATUS_FAIL && resel !== null) {
                                     resel.innerHTML = this.responseText
                                 }
                             }
@@ -533,16 +533,16 @@
 
                     changeTheme (themeId) {
                         this.post ({
-                            "POSTID": themeId,
-                            "TOKEN": this.token,
+                            "changedTheme": themeId,
+                            "token": this.token,
                         })
                     },
 
                     uploadTheme () {
                         let targetZip = document.querySelector('#themeUpload').value
                         this.post ({
-                            "UPLOADZIP": targetZip,
-                            "TOKEN": this.token,
+                            "uploadzip": targetZip,
+                            "token": this.token,
                         })
                     },
 
@@ -564,67 +564,67 @@
 
                 watch: {
 
-                    SITENAME: {
+                    sitename: {
                         handler: _.debounce (function (value) {
                             this.post ({
-                                "SITENAME": value,
-                                "TOKEN": this.token,
+                                "sitename": value,
+                                "token": this.token,
                             })
-                        }, 2000)
+                        }, 500)
                     },
 
-                    USERNAME: {
+                    username: {
                         handler: _.debounce (function (value) {
                             this.post ({
-                                "USERNAME": value,
-                                "TOKEN": this.token,
+                                "username": value,
+                                "token": this.token,
                             })
-                        }, 2000)
+                        }, 500)
                     },
 
-                    ADDRESS: {
+                    address: {
                         handler: _.debounce (function (value) {
                             this.post ({
-                                "ADDRESS": value,
-                                "TOKEN": this.token,
+                                "address": value,
+                                "token": this.token,
                             })
-                        }, 2000)
+                        }, 500)
                     },
 
                     whetherAddClass: {
                         handler: _.debounce (function (value) {
                             this.post ({
                                 "whetherAddClass": value,
-                                "TOKEN": this.token,
+                                "token": this.token,
                             })
-                        }, 1000)
+                        }, 500)
                     },
 
                     whetherAddId: {
                         handler: _.debounce (function (value) {
                             this.post ({
                                 "whetherAddId": value,
-                                "TOKEN": this.token,
+                                "token": this.token,
                             })
-                        }, 1000)
+                        }, 500)
                     },
 
                     whetherAddStyle: {
                         handler: _.debounce (function (value) {
                             this.post ({
                                 "whetherAddStyle": value,
-                                "TOKEN": this.token,
+                                "token": this.token,
                             })
-                        }, 1000)
+                        }, 500)
                     },
 
-                    PAGENATION: {
+                    pagenation: {
                         handler: _.debounce (function (value) {
                             this.post ({
-                                "PAGENATION": value,
-                                "TOKEN": this.token,
+                                "pagenation": value,
+                                "token": this.token,
                             })
-                        }, 1000)
+                        }, 500)
                     },
 
                     addCategory: {
@@ -633,7 +633,7 @@
                             if (value !== ''){
                                 this.post ({
                                     "addCategoory": value,
-                                    "TOKEN": this.token,
+                                    "token": this.token,
                                 }, message.querySelector('small'))
                                 this.addCategory = ''
                                 message.classList.add('alert-success')
@@ -655,7 +655,7 @@
                             if (value !== ''){
                                 this.post ({
                                     "removeCategoory": value,
-                                    "TOKEN": this.token,
+                                    "token": this.token,
                                 }, message.querySelector('small'))
                                 this.removeCategory = ''
                                 message.classList.add('alert-success')
@@ -671,13 +671,13 @@
                         }, 5000)
                     },
 
-                    UriRule: {
+                    uriRule: {
                         handler: _.debounce (function (value) {
                             this.post ({
-                                "UriRule": value,
-                                "TOKEN": this.token,
+                                "uriRule": value,
+                                "token": this.token,
                             })
-                        }, 1000)
+                        }, 500)
                     },
 
                 },

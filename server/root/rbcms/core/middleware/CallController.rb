@@ -13,13 +13,7 @@ class CallController
     end
 
     def controller
-        begin
-            result = router.new(opt).exec
-        rescue => exception
-            SysLogger.error exception.message
-        ensure
-            return result
-        end
+        router.new(opt).exec
     end
 
     def initialize(router, opt)

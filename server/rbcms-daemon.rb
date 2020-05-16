@@ -8,8 +8,6 @@ loop do
         begin
             app             = App.create socket
             socket.write    "#{app.response}\r\n"
-        rescue => exception
-            SysLogger.error exception.message
         ensure
             socket.close
         end

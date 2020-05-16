@@ -45,7 +45,7 @@ class Sanitizer
                 return arg[:target].match(/^0\d(-\d{4}|\d-\d{3}|\d\d-\d\d|\d{3}-\d)-\d{4}$/).nil? ? false : true || arg[:target].match(/^0[789]0-\d{4}-\d{4}$/).nil? ? false : true
             end
         rescue => exception
-            puts exception.message
+            SysLogger.error exception.message
         end
     end
 

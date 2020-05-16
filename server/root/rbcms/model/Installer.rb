@@ -24,11 +24,9 @@ class Installer
                 item = value.split("=")
                 datas[item[0]] = item[1]
             end
-            # if Token.check datas["TOKEN"]
-            #     settings = GDBM.new('db/settings.db')
-            #     settings.replace(datas)
-            #     settings.close
-            # end
+            if Token.check datas["token"]
+                self.default datas
+            end
         rescue => exception
             SysLogger.error exception.message
         ensure
@@ -36,7 +34,39 @@ class Installer
         end
     end
 
-    def self.default
-        
+    def self.default datas
+        begin
+            settings = GDBM.new('db/settings.db')
+            posts = GDBM.new('db/posts.db')
+            medias = GDBM.new('db/medias.db')
+            comments = GDBM.new('db/comments.db')
+
+            settings["username"] = datas["username"]
+            settings["password"] = datas["password"]
+            settings["address"] = datas["address"]
+            settings["sitename"] = "NewBlog"
+            settings["whetherAddClass"] = "on"
+            settings["whetherAddId"] = "on"
+            settings["whetherAddStyle"] = "on"
+            settings["pagenation"] = "5"
+            settings["uriRule"] = ""
+
+            posts[1] = {
+                "postTitle" => "Hello, world",
+                "postId" => "helloWorld",
+                "postStyle" => "",
+                "postContent" => "こんにちは、最初の投稿です。削除してRBCMSを始めましょう。",
+                "postCategory" => "なし",
+            },
+
+            settings.close
+            posts.close
+            medias.close
+            comments.close
+        rescue => exception
+            SysLogger.error exception.message
+        ensure
+            return 0
+        end
     end
 end

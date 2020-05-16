@@ -9,7 +9,7 @@ class AdminInstallController
     attr_reader :opt
     public
     def exec
-        response = Array.new
+        response = Hash.new
         begin
             if Installer.create opt.Posted
                 response = {

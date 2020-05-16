@@ -36,8 +36,13 @@ class RoutingRule
                 "method"        => "POST"
             },
             {
-                "contoller"     => AdminPostController,
+                "controller"    => AdminPostController,
                 "rule"          => /^\/admin\/post$/,
+                "method"        => "POST",
+            },
+            {
+                "controller"    => AdminArticleController,
+                "rule"          => /^\/admin\/article$/,
                 "method"        => "POST",
             },
             {

@@ -5,6 +5,7 @@ class SysLogger < Logger
     end
 
     def self.fileopen path
+        if !File.directory?('root/log') then Dir.mkdir("root/log") end
         file = File.open( path, File::WRONLY | File::APPEND | File::CREAT )
         file.sync = true
         file

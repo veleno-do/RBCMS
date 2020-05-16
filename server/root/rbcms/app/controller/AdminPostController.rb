@@ -9,7 +9,22 @@ class AdminPostController
     attr_reader :opt
     public
     def exec
-        "AdminPost"
+        response = Hash.new
+        begin
+            if Console.request opt.Posted
+                response = {
+                    "status" => 200,
+                }
+            else
+                response = {
+                    "status" => 400,
+                }
+            end
+        rescue => exception
+            SysLogger.error exception.message
+        ensure
+            return response
+        end
     end
 
     def initialize opt
