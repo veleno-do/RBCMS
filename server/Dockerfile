@@ -1,5 +1,5 @@
 
-FROM            centos:7
+FROM            centos:8
 
 LABEL           maintainer="h3yukomah1y1k1m@gmail.com"
 
@@ -8,7 +8,7 @@ ENV             APP_ROOT /home
 
 RUN             yum update -y
 RUN             yum install -y openssh-server
-RUN             yum install -y ruby ruby-dev
+RUN             yum install -y ruby
 RUN             yum clean all
 
 EXPOSE          80

@@ -126,6 +126,12 @@
                                     
                                     <section class="col-12">
 
+                                        <div id="posting" class="alert alert-info alert-dismissible fade show" role="alert">
+                                            <h6 class="alert-heading mb-0">記事の投稿ができます。</h6>
+                                            <hr>
+                                            <p class="mb-0"><small>項目を記入し、投稿ボタンを押して下さい。</small></p>
+                                        </div>
+
                                         <div class="form-group">
                                             <label for="articleTitle">記事のタイトル <span class="badge badge-danger">必須</span></label>
                                             <input type="text" class="form-control" id="articleTitle" aria-describedby="article-title" placeholder="記事のタイトルを設定" v-model="postTitle" required />
@@ -221,6 +227,7 @@
                                             <tr>
                                                 <th scope="col">タイトル</th>
                                                 <th scope="col">コンテンツ</th>
+                                                <th scope="col">日付</th>
                                                 <th scope="col">編集</th>
                                             </tr>
                                         </thead>
@@ -230,6 +237,7 @@
                                                 <tr>
                                                     <td>{{article.title}}</td>
                                                     <td>{{article.content}}</td>
+                                                    <td>{{article.date}}</td>
                                                     <td><a href="javascript:void(0)" target="" class="btn btn-primary text-light">編集</a></td>
                                                 </tr>
                                             </template>
@@ -349,7 +357,7 @@
 
                                     <div class="form-group mb-4">
                                         <label for="addArticleCategory">カテゴリを追加</label>
-                                        <div id="addingCategory" class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        <div id="addingCategory" class="alert alert-info alert-dismissible fade show" role="alert">
                                             <h6 class="alert-heading mb-0">追加処理は行っていません。</h6>
                                             <hr>
                                             <p class="mb-0"><small>追加するには追加したいカテゴリ名を入力して2秒後に追加処理が走ります。</small></p>
@@ -360,7 +368,7 @@
 
                                     <div class="form-group mb-4">
                                         <label for="removeArticleCategory">カテゴリを削除</label>
-                                        <div id="removingCategory" class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        <div id="removingCategory" class="alert alert-info alert-dismissible fade show" role="alert">
                                             <h6 class="alert-heading mb-0">削除処理は行っていません。</h6>
                                             <hr>
                                             <p class="mb-0"><small>削除するには削除したいカテゴリ名を入力して2秒後に削除処理が走ります。</small></p>
@@ -435,6 +443,7 @@
                             title: "<%= article["postTitle"] %>",
                             category: "<%= article["postCategory"] %>",
                             content: "<%= article["postContent"] %>",
+                            date: "<%= article["postDate"] %>",
                         },
                     <% end %>
                     ],
@@ -502,7 +511,8 @@
                                 postdata += encodeURIComponent (keys[x]) + '=' + encodeURIComponent (datasel[keys[x]]) + '&'
                             }
                             postdata = postdata.slice(0,-1)
-                            postdata = postdata.replace(/%20/g,'+')
+                            postdata = postdata.replace(/%20/g,' ')
+                            console.log(postdata)
                             XHR.open ('POST',to,true)
                             XHR.setRequestHeader ('Content-Type','application/x-www-form-urlencoded')
                             XHR.send (postdata)
@@ -535,6 +545,7 @@
                                 "postStyle": that.postStyle,
                                 "postContent": that.postContent,
                                 "postCategory": that.postCategory,
+                                "token": that.token,
                             }, "/admin/upload/article", message.querySelector('small'))
                             message.classList.add('alert-success')
                             message.classList.remove('alert-danger')
@@ -701,12 +712,12 @@
                                 }, "/admin/addcategory", message.querySelector('small'))
                                 this.addCategory = ''
                                 message.classList.add('alert-success')
-                                message.classList.remove('alert-warning')
+                                message.classList.remove('alert-info')
                                 message.querySelector('h6').innerHTML = '処理が完了しました。'
                                 message.querySelector('small').innerHTML = 'さらなる追加処理の受付が可能です。'
                             } else {
                                 message.classList.remove('alert-success')
-                                message.classList.add('alert-warning')
+                                message.classList.add('alert-info')
                                 message.querySelector('h6').innerHTML = '追加処理は行っていません。'
                                 message.querySelector('small').innerHTML = '追加するには追加したいカテゴリ名を入力して2秒後に追加処理が走ります。'
                             }
@@ -723,12 +734,12 @@
                                 }, "/admin/removecategory", message.querySelector('small'))
                                 this.removeCategory = ''
                                 message.classList.add('alert-success')
-                                message.classList.remove('alert-warning')
+                                message.classList.remove('alert-info')
                                 message.querySelector('h6').innerHTML = '処理が完了しました。'
                                 message.querySelector('small').innerHTML = 'さらなる削除処理の受付が可能です。'
                             } else {
                                 message.classList.remove('alert-success')
-                                message.classList.add('alert-warning')
+                                message.classList.add('alert-info')
                                 message.querySelector('h6').innerHTML = '削除処理は行っていません。'
                                 message.querySelector('small').innerHTML = '削除するには削除したいカテゴリ名を入力して2秒後に削除処理が走ります。'
                             }

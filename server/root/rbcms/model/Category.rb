@@ -6,6 +6,10 @@ module CategoryInterface
     def self.remove param
         raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
     end
+
+    def self.get
+        raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
+    end
 end
 
 class Category
@@ -37,6 +41,18 @@ class Category
             SysLogger.error exception.message
         ensure
             return result
+        end
+    end
+
+    def self.get
+        data = Array.new
+        database = "db/categories.db"
+        begin
+            GDBM.open(database,mode=nil,flags=GDBM::READER).each_pair{|key,value| data.push(key)}            
+        rescue => exception
+            SysLogger.error exception.message
+        ensure
+            return data
         end
     end
 end

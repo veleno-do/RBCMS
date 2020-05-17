@@ -20,33 +20,11 @@ class AdminUser
                 "whetherAddStyle" => settings["whetherAddStyle"],
                 "pagenation" => settings["pagenation"],
                 "uriRule" => settings["uriRule"],
-                "article" => self.articles,
-                "categories" => self.categories,
+                "article" => Article.get({
+                    "count" => 10,
+                }),
+                "categories" => Category.get,
             }
-        rescue => exception
-            SysLogger.error exception.message
-        ensure
-            return data
-        end
-    end
-
-    def self.articles
-        data = Hash.new
-        database = "db/postdata/"
-        begin
-            Dir.open(database).each_with_index{|db,i| if db.include?(".db") then index=i-1;data.store(index,Hash.new);GDBM.open(database+db,mode=nil,flags=GDBM::READER).each_pair{|key,value| data[index].store(key,value);if data.length == 10 then break end} end}
-        rescue => exception
-            SysLogger.error exception.message
-        ensure
-            return data
-        end
-    end
-
-    def self.categories
-        data = Array.new
-        database = "db/categories.db"
-        begin
-            GDBM.open(database,mode=nil,flags=GDBM::READER).each_pair{|key,value| data.push(key)}            
         rescue => exception
             SysLogger.error exception.message
         ensure

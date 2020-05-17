@@ -5,7 +5,7 @@ module StartControllerInterface
 end
 
 class StartController
-    include 
+    include StartControllerInterface
     public
     def self.start
         {
