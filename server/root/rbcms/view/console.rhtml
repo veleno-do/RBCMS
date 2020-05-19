@@ -226,7 +226,7 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col">タイトル</th>
-                                                <th scope="col">コンテンツ</th>
+                                                <th scope="col">カテゴリ</th>
                                                 <th scope="col">日付</th>
                                                 <th scope="col">編集</th>
                                             </tr>
@@ -236,7 +236,7 @@
                                             <template v-for="article in articles">
                                                 <tr>
                                                     <td>{{article.title}}</td>
-                                                    <td>{{article.content}}</td>
+                                                    <td>{{article.category}}</td>
                                                     <td>{{article.date}}</td>
                                                     <td><a href="javascript:void(0)" target="" class="btn btn-primary text-light">編集</a></td>
                                                 </tr>
@@ -283,7 +283,7 @@
 
                                     <template v-for="theme in themes">
                                         <div class="card bg-light w-100 mb-3">
-                                            <div class="card-header">{{theme.themeName}}</div>
+                                            <div class="card-header">{{theme.themeName}} <small>製作者: {{theme.themeAuthor}}</small></div>
                                             <div class="card-body">
                                                 <p class="card-text">{{theme.themeDescription}}</p>
                                                 <a href="javascript:void(0)" class="btn btn-primary" v-on:click="changeTheme(theme.themeId)">このテーマに変更</a>
@@ -437,15 +437,15 @@
                     head: "ダッシュボード",
 
                     articles: [
-                    <% article.each do |index,article| %>
+                        <% article.each do |index,article| %>
                         {
-                            id: "<%= article["postId"] %>",
-                            title: "<%= article["postTitle"] %>",
-                            category: "<%= article["postCategory"] %>",
-                            content: "<%= article["postContent"] %>",
-                            date: "<%= article["postDate"] %>",
+                            id: decodeURIComponent("<%= article["postId"] %>"),
+                            title: decodeURIComponent("<%= article["postTitle"] %>"),
+                            category: decodeURIComponent("<%= article["postCategory"] %>"),
+                            content: decodeURIComponent("<%= article["postContent"] %>"),
+                            date: decodeURIComponent("<%= article["postDate"] %>"),
                         },
-                    <% end %>
+                        <% end %>
                     ],
 
                     comments: [
@@ -458,11 +458,14 @@
                     ],
 
                     themes: [
+                        <% themes.each do |theme| %>
                         {
-                            themeName: "デフォルト",
-                            themeDescription: "最初から用意されている、デフォルトのテーマです。",
-                            themeId: 'default',
+                            themeId: "<%= theme["themeId"].force_encoding("ASCII-8BIT") %>",
+                            themeName: "<%= theme["themeName"].force_encoding("ASCII-8BIT") %>",
+                            themeDescription: "<%= theme["themeDescription"].force_encoding("ASCII-8BIT") %>",
+                            themeAuthor: "<%= theme["themeAuthor"].force_encoding("ASCII-8BIT") %>",
                         },
+                        <% end %>
                     ],
 
                     images: [

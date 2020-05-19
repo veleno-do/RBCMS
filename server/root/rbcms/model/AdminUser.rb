@@ -24,6 +24,7 @@ class AdminUser
                     "count" => 10,
                 }),
                 "categories" => Category.get,
+                "themes" => Theme.getlist,
             }
         rescue => exception
             SysLogger.error exception.message

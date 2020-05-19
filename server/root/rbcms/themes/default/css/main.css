@@ -1,0 +1,7 @@
+h2 {
+  letter-spacing: .02em;
+}
+
+main {
+  min-height: calc(100vh - 100px);
+}

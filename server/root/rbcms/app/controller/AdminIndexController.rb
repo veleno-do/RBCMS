@@ -28,6 +28,7 @@ class AdminIndexController
                         :uriRule => admin["uriRule"],
                         :article => admin["article"],
                         :categories => admin["categories"],
+                        :themes => admin["themes"],
                     }
                 )
             }

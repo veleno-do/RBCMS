@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require "socket"
 
 server = TCPServer.open(80)

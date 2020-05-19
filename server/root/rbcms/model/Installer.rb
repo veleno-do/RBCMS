@@ -52,6 +52,8 @@ class Installer
             settings["pagenation"] = "5"
             settings["uriRule"] = ""
 
+            settings["activeTheme"] = "default"
+
             default["postTitle"] = "Hello, world"
             default["postId"] = "helloWorld"
             default["postStyle"] = ""
