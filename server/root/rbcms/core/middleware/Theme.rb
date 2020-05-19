@@ -2,6 +2,10 @@ module ThemeInterface
     def self.getlist
         raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
     end
+
+    def self.get
+        raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
+    end
 end
 
 class Theme
@@ -24,10 +28,14 @@ class Theme
                 themeDatas.push(fileInfo)
             end
         rescue => exception
-            SysLogger.debug exception.message
+            SysLogger.error exception.message
         ensure
             return themeDatas
         end
+    end
+
+    def self.get
+        GetTheme.run
     end
 end
 

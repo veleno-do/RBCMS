@@ -15,7 +15,7 @@
             <div class="position-fixed w-100 bg-light shadow border-bottom" style="z-index:100;display:flex;align-items:center;">
 
                 <div class="col-6" style="overflow-x:hidden;">
-                    <h3 class="py-1"><a href="" target="" style="white-space:nowrap;">{{sitename}}</a></h3>
+                    <h3 class="py-1"><a href="/" target="" style="white-space:nowrap;">{{sitename}}</a></h3>
                 </div>
                 <div class="col-6">
                     <div class="list-group list-group-horizontal ml-auto" style="width:fit-content;">
@@ -607,7 +607,7 @@
 
                     changeTheme (themeId) {
                         this.post ({
-                            "theme": themeId,
+                            "activeTheme": themeId,
                             "token": this.token,
                         }, "/admin/changetheme")
                     },

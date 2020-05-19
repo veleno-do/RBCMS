@@ -14,31 +14,7 @@
     <body>
         <div id="app" class="w-100 text-secondary">
 
-            <header class="w-100 bg-light border-bottom">
-
-                <div class="container">
-
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="ナビゲーションの切替">
-                        <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <a class="navbar-brand" href="javascript:void(0)">NewBlog</a>
-                        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                            <ul class="navbar-nav">
-                                <li class="nav-item"><a class="nav-link active" href="#">ホーム</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#">プロフィール</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#">コンタクト</a></li>
-                            </ul>
-                        </div>
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="キーワードを検索" aria-label="キーワードを検索">
-                            <button type="submit" class="btn btn-outline-success my-2 my-sm-0">検索</button>
-                        </form>
-                    </nav>
-
-                </div>
-
-            </header>
+            <%= header %>
 
             <main>
 
@@ -46,7 +22,7 @@
                     <div class="container">
                         <h1>こんにちは。</h1>
                         <p>こちらは、ブログトップです。記事一覧を取得します。</p>
-                        <a class="btn btn-success" href="javascript:void(0)" target="_blank" role="button">筆者について »</a>
+                        <a class="btn btn-success" href="/about" role="button">筆者について »</a>
                     </div>
                 </section>
 
@@ -54,14 +30,16 @@
                     <div class="container d-flex flex-wrap">
 
                         <div class="col-md-9">
-                            <a href="" target="" class="text-secondary">
-                                <h4>Hello, world</h4>
+                        <% article.each do |index,article| %>
+                            <a href="/post/<%= article["postId"] %>" target="" class="text-secondary">
+                                <h4><%= article["postTitle"] %></h4>
                             </a>
     
-                            <p>最初の投稿です。削除して始めましょう。</p>
+                            <p><%= article["postContent"] %></p>
     
-                            <small>投稿日時: 20200518</small>
+                            <small>投稿日時: <%= article["postDate"] %></small>
                             <hr>
+                        <% end %>
                         </div>
 
                         <div class="col-md-3">
@@ -96,27 +74,7 @@
 
             </main>
 
-            <footer class="page-footer font-small bg-dark text-light">
-
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 py-5 d-flex justify-content-center align-items-center">
-                            <div class="mb-5 flex-center">
-                                <a href="https://www.facebook.com/profile.php?id=100035294776733" class="text-light" target="_blank"><i class="fab fa-facebook-f fa-lg mr-md-5 mr-3 fa-2x"></i></a>
-                                <a href="https://twitter.com/CxYzOMOH6tcH1QQ" class="text-light" target="_blank"><i class="fab fa-twitter fa-lg mr-md-5 mr-3 fa-2x"></i></a>
-                                <a href="https://github.com/veleno-do" class="text-light" target="_blank"><i class="fab fa-github fa-lg mr-md-5 mr-3 fa-2x"></i></a>
-                                <a href="https://hub.docker.com/u/veleno0115" class="text-light" target="_blank"><i class="fab fa-docker fa-lg mr-md-5 mr-3 fa-2x"></i></a>
-                            </div>
-                        </div>
-                    </div>
-              
-                </div>
-              
-                <div class="footer-copyright text-center py-3">
-                    <small>© 2020 Copyright: <a href="https://github.com/veleno-do" class="text-light"> https://github.com/veleno-do</a></small>
-                </div>
-              
-            </footer>
+            <%= footer %>
 
         </div>
 

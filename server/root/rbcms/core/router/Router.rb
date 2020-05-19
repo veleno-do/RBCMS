@@ -14,8 +14,8 @@ class Router
     end
 
     def getController
-        result = nil
         begin
+            result = NotFoundController
             tables.each do |table|
                 if (uri.to_s.match(table["rule"]).nil? ? false : true) && method == table["method"] then result = table["controller"] end
             end

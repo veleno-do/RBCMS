@@ -86,6 +86,16 @@ class RoutingRule
                 "method"        => "GET",
             },
             {
+                "controller"    => ContactController,
+                "rule"          => /^\/contact$/,
+                "method"        => "GET",
+            },
+            {
+                "controller"    => AboutController,
+                "rule"          => /^\/about$/,
+                "method"        => "GET",
+            },
+            {
                 "controller"    => FrontCategoryController,
                 "rule"          => /^\/category\/\w+$/,
                 "method"        => "GET",

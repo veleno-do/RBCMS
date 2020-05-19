@@ -9,7 +9,15 @@ class AdminChangeThemeController
     attr_reader :opt
     public
     def exec
-
+        if ChangeTheme.run opt.Posted
+            return {
+                "status" => 200,
+            }
+        else
+            return {
+                "status" => 400,
+            }
+        end
     end
 
     def initialize opt

@@ -9,20 +9,26 @@ class FrontController
     attr_reader :opt
     public
     def exec
-        response = String.new
-        begin
-            if Installer.firstaccess? then response = StartController.start else response = getResponse end
-        rescue => exception
-            SysLogger.error exception.message
-        ensure
-           return response
-        end
+        if Installer.firstaccess? then return StartController.start else return getResponse end
     end
 
     def getResponse
+        settings = AdminUser.get
         {
             "status" => 200,
-            "body"   => "blogtop"
+            "Contenttype" => "html",
+            "body" => View.render(
+                'home.rhtml',
+                {
+                    :sitename => settings["sitename"],
+                    :username => settings["username"],
+                    :address => settings["address"],
+                    :article => settings["article"],
+                    :categories => settings["categories"],
+                    :themes => settings["themes"],
+                },
+                "root/rbcms/themes/#{Theme.get}/",
+            ),
         }
     end
 

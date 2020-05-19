@@ -1,11 +1,11 @@
-module IndividualControllerInterface
+module AboutControllerInterface
     def exec
         raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
     end
 end
 
-class IndividualController
-    include IndividualControllerInterface
+class AboutController
+    include AboutControllerInterface
     attr_reader :opt
     public
     def exec
@@ -13,16 +13,16 @@ class IndividualController
             "status" => 200,
             "Contenttype" => "html",
             "body" => View.render(
-                'page.rhtml',
+                "about.rhtml",
                 {
 
                 },
                 "root/rbcms/themes/#{Theme.get}/",
-            ),
+            )
         }
     end
 
     def initialize opt
-       @opt = opt
+        @opt = opt
     end
 end
