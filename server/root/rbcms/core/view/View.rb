@@ -24,4 +24,8 @@ class View < OpenStruct
     def footer
         ERB.new(File.read(path+"footer.rhtml")).result(binding)
     end
+
+    def content page
+        ERB.new(File.read(path+"content.#{page}.rhtml")).result(binding)
+    end
 end

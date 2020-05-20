@@ -1,3 +1,6 @@
-D, [2020-05-19T09:34:51.376900 #1] DEBUG -- : []
-D, [2020-05-19T09:34:59.683553 #1] DEBUG -- : []
-D, [2020-05-19T09:35:07.087025 #1] DEBUG -- : [:render]
+D, [2020-05-20T03:40:30.611072 #1] DEBUG -- : root/rbcms/themes/default/theme-item/css/main.min.css
+D, [2020-05-20T03:40:30.997411 #1] DEBUG -- : root/rbcms/themes/default/theme-item/css/main.min.css
+D, [2020-05-20T03:40:31.092402 #1] DEBUG -- : root/rbcms/themes/default/theme-item/js/main.js
+D, [2020-05-20T03:41:25.513210 #1] DEBUG -- : root/rbcms/themes/default/css/main.min.css
+D, [2020-05-20T03:41:25.847912 #1] DEBUG -- : root/rbcms/themes/default/js/main.js
+D, [2020-05-20T03:41:35.257854 #1] DEBUG -- : root/rbcms/themes/default/css/main.min.css

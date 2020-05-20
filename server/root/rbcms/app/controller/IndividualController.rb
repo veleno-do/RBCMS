@@ -9,13 +9,16 @@ class IndividualController
     attr_reader :opt
     public
     def exec
+        settings = AdminUser.get
         {
             "status" => 200,
             "Contenttype" => "html",
             "body" => View.render(
                 'page.rhtml',
                 {
-
+                    :sitename => settings["sitename"],
+                    :address => settings["address"],
+                    :categories => settings["categories"],
                 },
                 "root/rbcms/themes/#{Theme.get}/",
             ),

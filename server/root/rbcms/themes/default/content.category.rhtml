@@ -1,0 +1,11 @@
+<div class="col-md-3 mb-5">
+
+    <h5>カテゴリー</h5>
+
+    <ul class="list-group" style="max-width: 400px;">
+    <% categories.each do |category| %>
+        <li class="list-group-item"><a href="/category/<%= category %>"><%= category %></a></li>
+    <% end %>
+    </ul>
+
+</div>

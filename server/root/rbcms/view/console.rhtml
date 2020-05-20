@@ -418,7 +418,7 @@
                 
                 data: {
                     sitename: "<%= sitename %>",
-                    username: "<%= username %>",
+                    username: decodeURIComponent("<%= username %>"),
                     address: "<%= address %>",
 
                     whetherAddClass: "<%= whetherAddClass %>",
@@ -481,7 +481,7 @@
 
                     categories: [
                         <% categories.each do |category| %>
-                        "<%= category %>",
+                        decodeURIComponent("<%= category %>"),
                         <% end %>
                     ],
 

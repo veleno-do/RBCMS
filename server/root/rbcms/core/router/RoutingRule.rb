@@ -125,6 +125,11 @@ class RoutingRule
                 "rule"          => /^\/async\/comments\/\d+/,
                 "method"        => "GET",
             },
+            {
+                "controller"    => ThemeItemController,
+                "rule"          => /^\/theme-item\//,
+                "method"        => "GET",
+            },
         ]
     end
 end

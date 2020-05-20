@@ -9,13 +9,14 @@ class ContactController
     attr_reader :opt
     public
     def exec
+        settings = AdminUser.get
         {
             "status" => 200,
             "Contenttype" => "html",
             "body" => View.render(
                 "contact.rhtml",
                 {
-
+                    :sitename => settings["sitename"],
                 },
                 "root/rbcms/themes/#{Theme.get}/",
             )
