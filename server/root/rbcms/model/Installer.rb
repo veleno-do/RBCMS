@@ -40,7 +40,6 @@ class Installer
             default = GDBM.new('db/postdata/default.db',flags=GDBM::NEWDB)
             categories = GDBM.new('db/categories.db',flags=GDBM::NEWDB)
             medias = GDBM.new('db/medias.db',flags=GDBM::NEWDB)
-            comments = GDBM.new('db/comments.db',flags=GDBM::NEWDB)
 
             settings["username"] = datas["username"]
             settings["password"] = datas["password"]
@@ -67,7 +66,6 @@ class Installer
             default.close
             categories.close
             medias.close
-            comments.close
         rescue => exception
             SysLogger.error exception.message
         ensure

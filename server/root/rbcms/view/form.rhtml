@@ -1,0 +1,61 @@
+<div id="form">
+    <div :class="'alert '+'alert-'+result" role="alert" v-show="message&&result">
+        {{message}}
+    </div>
+    <div class="form-group">
+        <label for="form-name">名前 <span class="badge badge-danger">必須</span></label>
+        <input id="form-name" class="form-control" type="text" placeholder="名前を記述して下さい" v-model="commentName">
+        <small class="form-text text-muted"></small>
+    </div>
+    <div class="form-group">
+        <label for="form-text">コメント <span class="badge badge-danger">必須</span></label>
+        <textarea id="form-text" class="form-control" rows="5" placeholder="コメントを記述して下さい" v-model="commentText"></textarea>
+        <small class="form-text text-muted"></small>
+    </div>
+    <a href="javascript:void(0)" class="btn btn-success" v-on:click="commentSend">送信</a>
+</div>
+<script type="text/javascript" async>
+    window.addEventListener ("DOMContentLoaded", function () {
+        let form = new Vue ({
+            el: "#form",
+            data: {
+                commentName: "",
+                commentText: "",
+                result: "danger",
+                message: "",
+                token: "<%= token %>",
+            },
+            methods: {
+                commentSend: function () {
+                    if (this.commentName != "" && this.commentText != "") {
+                        try {
+                            var that = this
+                            var XHR = new XMLHttpRequest();
+                            var postData = "commentName=" + encodeURIComponent (this.commentName) + "&commentText=" + encodeURIComponent (this.commentText) + "&token=" + this.token
+                            XHR.onreadystatechange = function () {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    that.message = "送信完了しました。"
+                                    that.result = "success"
+                                    that.commentName = ""
+                                    that.commentText = ""
+                                } else if (this.readyState == 4 && (this.status == 400 || this.status == 404)) {
+                                    that.message = "送信失敗しました。リロードし、もう一度お試しください。"
+                                    that.result = "danger"
+                                }
+                            }
+                            console.log(postData)
+                            XHR.open ("POST", "/comment", true)
+                            XHR.setRequestHeader ('Content-Type','application/x-www-form-urlencoded')
+                            XHR.send (postData)
+                        } catch (error) {
+                            this.message = error
+                        }
+                    } else {
+                        this.message = "必須項目を記入して下さい"
+                        this.result = "danger"
+                    }
+                },
+            },
+        })
+    })
+</script>

@@ -3,7 +3,7 @@ module SessionInterface
         raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
     end
 
-    def self.get
+    def self.isset
         raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
     end
 end

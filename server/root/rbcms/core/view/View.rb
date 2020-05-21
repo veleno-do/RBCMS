@@ -28,4 +28,32 @@ class View < OpenStruct
     def content page
         ERB.new(File.read(path+"content.#{page}.rhtml")).result(binding)
     end
+
+    def head
+        ERB.new(File.read("root/rbcms/view/head.rhtml")).result(binding)
+    end
+
+    def foot
+        ERB.new(File.read("root/rbcms/view/foot.rhtml")).result(binding)
+    end
+
+    def rbcmsScript
+        File.read("root/rbcms/view/js/app.js")
+    end
+
+    def search
+        ERB.new(File.read("root/rbcms/view/search.rhtml")).result(binding)
+    end
+
+    def pagenate
+        ERB.new(File.read("root/rbcms/view/pagenate.rhtml")).result(binding)
+    end
+
+    def form
+        ERB.new(File.read("root/rbcms/view/form.rhtml")).result(binding)
+    end
+
+    def comments
+        ERB.new(File.read("root/rbcms/view/comments.rhtml")).result(binding)
+    end
 end

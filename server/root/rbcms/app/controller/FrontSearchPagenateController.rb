@@ -1,16 +1,18 @@
-module FrontSearchControllerInterface
+module FrontSearchPagenateControllerInterface
     def exec
         raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
     end
 end
 
-class FrontSearchController
-    include FrontSearchControllerInterface
+class FrontSearchPagenateController
+    include FrontSearchPagenateControllerInterface
     attr_reader :opt
     public
     def exec
+        uri = pageinfo
         settings = AdminUser.get({
-            "search" => search,
+            "search" => uri["search"],
+            "page" => uri["page"],
         })
         {
             "status" => 200,
@@ -27,14 +29,18 @@ class FrontSearchController
                 },
                 "root/rbcms/themes/#{Theme.get}/",
             ),
+        }        
+    end
+
+    def pageinfo
+        parsed = (opt.Uri).gsub(/^\/search\//,"").split("/")
+        {
+            "search" => parsed[0],
+            "page" => parsed[1].to_i,
         }
     end
 
-    def search
-        (opt.Uri).gsub(/^\/search\//,"").to_s
-    end
-
     def initialize opt
-       @opt = opt
+        @opt = opt
     end
 end

@@ -1,0 +1,36 @@
+<nav id="pagenate" aria-label="Page navigation example" class="d-flex justify-content-center align-items-center">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" :href="uri+'/'+backnum" v-show="backnum>0">前へ</a></li>
+        <li class="page-item"><a class="page-link" :href="uri+'/'+backnum" v-show="backnum>0">{{backnum}}</a></li>
+        <li class="page-item"><a class="page-link" :href="uri+'/'+nownum">{{nownum}}</a></li>
+        <li class="page-item"><a class="page-link" :href="uri+'/'+nextnum">{{nextnum}}</a></li>
+        <li class="page-item"><a class="page-link" :href="uri+'/'+nextnum">次へ</a></li>
+    </ul>
+</nav>
+<script type="text/javascript">
+    window.addEventListener ("DOMContentLoaded", function () {
+        let pagenate = new Vue ({
+            el: "#pagenate",
+            computed: {
+                uri: function () {
+                    uri = location.pathname
+                    return uri.replace(/\/\d+$/,"/").replace(/\/$/,"")
+                },
+                nownum: function () {
+                    uri = location.pathname
+                    if(pagenum = uri.match(/\/\d+$/)){
+                        return pagenum[0].replace("/","")
+                    }else{
+                        return "1"
+                    }
+                },
+                nextnum: function () {
+                    return String(Number(this.nownum)+1)
+                },
+                backnum: function () {
+                    return String(Number(this.nownum)-1)
+                }
+            },
+        })
+    })
+</script>

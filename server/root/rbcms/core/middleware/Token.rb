@@ -6,7 +6,7 @@ end
 
 class Token
     def self.set
-        if !File.directory?('db') then Dir.mkdir("db");Dir.mkdir("db/postdata") end
+        if !File.directory?('db') then Dir.mkdir("db");Dir.mkdir("db/postdata");Dir.mkdir("db/comments") end
         SetToken.create
     end
 

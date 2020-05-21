@@ -126,6 +126,11 @@ class RoutingRule
                 "method"        => "GET",
             },
             {
+                "controller"    => FrontSearchPagenateController,
+                "rule"          => /^\/search\/\S+\/\d+$/,
+                "method"        => "GET",
+            },
+            {
                 "controller"    => AsyncMediaController,
                 "rule"          => /^\/async\/medias\/\d+/,
                 "method"        => "GET",
