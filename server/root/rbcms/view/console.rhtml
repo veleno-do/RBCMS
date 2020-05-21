@@ -439,11 +439,11 @@
                     articles: [
                         <% article.each do |index,article| %>
                         {
-                            id: decodeURIComponent("<%= article["postId"] %>"),
-                            title: decodeURIComponent("<%= article["postTitle"] %>"),
-                            category: decodeURIComponent("<%= article["postCategory"] %>"),
-                            content: decodeURIComponent("<%= article["postContent"] %>"),
-                            date: decodeURIComponent("<%= article["postDate"] %>"),
+                            id: decodeURIComponent(`<%= article["postId"] %>`),
+                            title: decodeURIComponent(`<%= article["postTitle"] %>`),
+                            category: decodeURIComponent(`<%= article["postCategory"] %>`),
+                            content: decodeURIComponent(`<%= article["postContent"] %>`),
+                            date: decodeURIComponent(`<%= article["postDate"] %>`),
                         },
                         <% end %>
                     ],
@@ -675,7 +675,7 @@
                                 "whetherAddClass": value,
                                 "token": this.token,
                             }, "/admin/post")
-                        }, 500)
+                        }, 10)
                     },
 
                     whetherAddId: {
@@ -684,7 +684,7 @@
                                 "whetherAddId": value,
                                 "token": this.token,
                             }, "/admin/post")
-                        }, 500)
+                        }, 10)
                     },
 
                     whetherAddStyle: {
@@ -693,7 +693,7 @@
                                 "whetherAddStyle": value,
                                 "token": this.token,
                             }, "/admin/post")
-                        }, 500)
+                        }, 10)
                     },
 
                     pagenation: {
@@ -702,7 +702,7 @@
                                 "pagenation": value,
                                 "token": this.token,
                             }, "/admin/post")
-                        }, 500)
+                        }, 10)
                     },
 
                     addCategory: {

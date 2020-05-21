@@ -26,11 +26,13 @@
                         <div class="col-md-9">
 
                             <div class="my-5">
-                                <h2 class="mt-5">Hello, world</h2>
-            
+                                <h2 class="mt-5"><%= postTitle %></h2>
+                                <h6>カテゴリー: <a href="/category/<%= postCategory %>" class="text-secondary"><%= postCategory %></a></h6>
+                                <small>投稿日時: <a href="/date/<%= postDate %>" class="text-secondary"><%= postDate %></a></small>
+
                                 <hr>
             
-                                <p>最初の投稿です。削除して始めましょう。</p>
+                                <%= postContent %>
                             </div>
 
                             <hr>

@@ -96,13 +96,28 @@ class RoutingRule
                 "method"        => "GET",
             },
             {
+                "controller"    => FrontPagenateController,
+                "rule"          => /^\/\d$/,
+                "method"        => "GET",
+            },
+            {
                 "controller"    => FrontCategoryController,
-                "rule"          => /^\/category\/\w+$/,
+                "rule"          => /^\/category\//,
+                "method"        => "GET",
+            },
+            {
+                "controller"    => FrontCategoryPagenateController,
+                "rule"          => /^\/category\/\S+\/\d+$/,
                 "method"        => "GET",
             },
             {
                 "controller"    => FrontDateController,
                 "rule"          => /^\/date\/\d+$/,
+                "method"        => "GET",
+            },
+            {
+                "controller"    => FrontDatePagenateController,
+                "rule"          => /^\/date\/\d+\/\d+$/,
                 "method"        => "GET",
             },
             {

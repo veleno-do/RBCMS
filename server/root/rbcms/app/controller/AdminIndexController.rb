@@ -10,7 +10,9 @@ class AdminIndexController
     public
     def exec
         if Session.isset opt.Cookie
-            admin = AdminUser.get
+            admin = AdminUser.get({
+                "count" => 1000000,
+            })
             return {
                 "status" => 200,
                 "Contenttype" => "html",

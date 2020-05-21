@@ -58,8 +58,8 @@ class Installer
             default["postId"] = "helloWorld"
             default["postStyle"] = ""
             default["postContent"] = "こんにちは、最初の投稿です。削除してRBCMSを始めましょう。"
-            default["postCategory"] = "なし"
-            default["postDate"] = Time.now.strftime("%Y%m%d%H%M%S")
+            default["postCategory"] = "\xE3\x81\xAA\xE3\x81\x97"
+            default["postDate"] = Time.now.strftime("%Y%m%d")
 
             categories["なし"] = String.new
 

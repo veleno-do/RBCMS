@@ -27,13 +27,37 @@ class Article
         database = "db/postdata/"
         begin
             datas = Dir.glob(database+"*.db").sort_by{|dbfile| GDBM.open(dbfile,mode=nil,flags=GDBM::READER){|db| db["postDate"]}}.reverse
-            datas.each_with_index{|db,i| data.store(i,Hash.new);GDBM.open(db,mode=nil,flags=GDBM::READER).each_pair{|key,value| data[i].store(key,value);if data.length == opt["count"] then break end}}
+            datas.each{|db| GDBM.open(db,mode=nil,flags=GDBM::READER){|db| if conditions(db) then i=data.length;data.store(i,Hash.new);db.each_pair{|key,value| data[i].store(key,URI.decode(value))} end}}
         rescue => exception
             SysLogger.error exception.message
         ensure
-            return data
+            return data.find_all{|key,value| ((opt["page"].to_i - 1) * opt["count"].to_i) <= key && key <= ((opt["page"].to_i * opt["count"].to_i) - 1)}
         end
+    end
 
+    def conditions db
+        if opt["category"] != "" || opt["date"] != "" || opt["search"] != ""
+            if opt["category"] != ""
+                if db["postCategory"] == opt["category"]
+                    return true
+                else return false
+                end
+            elsif opt["date"] != ""
+                if db["postDate"] == opt["date"]
+                    return true
+                else return false
+                end
+            elsif opt["search"] != ""
+                if db["postTitle"].include?(opt["search"]) || db["postContent"].include?(opt["search"])
+                    return true
+                else return false
+                end
+            else
+                return false
+            end
+        else
+            return true
+        end
     end
 
     def initialize opt

@@ -35,7 +35,7 @@
                                 <h4><%= article["postTitle"] %></h4>
                             </a>
     
-                            <p><%= article["postContent"] %></p>
+                            <div style="overflow:hidden;max-height:100px;"><%= article["postContent"] %></div>
     
                             <small>投稿日時: <a href="/date/<%= article["postDate"] %>" class="text-secondary"><%= article["postDate"] %></a></small><br>
                             <small>カテゴリー: <a href="/category/<%= article["postCategory"] %>" class="text-secondary"><%= article["postCategory"] %></a></small>
@@ -43,7 +43,7 @@
                         <% end %>
                         </div>
 
-                        <%= content "category" %>
+                        <%= content("category") %>
                         
                     </div>
                 </section>

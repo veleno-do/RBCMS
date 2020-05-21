@@ -20,7 +20,7 @@ class Upload
                 db["postStyle"] = formatted["postStyle"]
                 db["postContent"] = formatted["postContent"]
                 db["postCategory"] = formatted["postCategory"]
-                db["postDate"] = Time.now.strftime("%Y%m%d%H%M%S")
+                db["postDate"] = Time.now.strftime("%Y%m%d")
                 db.close
                 result = true
             end

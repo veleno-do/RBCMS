@@ -1,16 +1,18 @@
-module FrontCategoryControllerInterface
+module FrontCategoryPagenateControllerInterface
     def exec
         raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
     end
 end
 
-class FrontCategoryController
-    include FrontCategoryControllerInterface
+class FrontCategoryPagenateController
+    include FrontCategoryPagenateControllerInterface
     attr_reader :opt
     public
     def exec
+        uri = pageinfo
         settings = AdminUser.get({
-            "category" => category,
+            "category" => uri["category"],
+            "page" => uri["page"],
         })
         {
             "status" => 200,
@@ -30,11 +32,15 @@ class FrontCategoryController
         }
     end
 
-    def category
-        (opt.Uri).gsub(/^\/category\//,"").to_s
+    def pageinfo
+        parsed = (opt.Uri).gsub(/^\/category\//,"").split("/")
+        {
+            "category" => parsed[0],
+            "page" => parsed[1].to_i,
+        }
     end
 
     def initialize opt
-       @opt = opt
+        @opt = opt
     end
 end
