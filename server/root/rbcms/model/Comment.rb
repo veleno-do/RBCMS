@@ -3,7 +3,7 @@ module CommentInterface
         raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
     end
 
-    def self.get
+    def self.get id
         raise NotImplementedError.new("#{self.class}##{__method__} are not exist")
     end
 end
@@ -31,6 +31,15 @@ class Comment
     end
 
     def self.get id
-
+        data = Hash.new
+        database = "db/comments/"
+        begin
+            datas = Dir.glob(database+"*.db").sort_by{|dbfile| GDBM.open(dbfile,mode=nil,flags=GDBM::READER){|db| db["commentDate"]}}.reverse
+            datas.each{|dbfile| GDBM.open(dbfile,mode=nil,flags=GDBM::READER){|db| if db["commentPost"] == id then i=data.length;data.store(i,Hash.new);db.each_pair{|key,value| data[i].store(key,URI.decode(value))} end}}
+        rescue => exception
+            SysLogger.error exception.message
+        ensure
+            return data
+        end
     end
 end

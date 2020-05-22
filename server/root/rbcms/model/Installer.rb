@@ -63,18 +63,17 @@ class Installer
             categories["なし"] = String.new
 
             comment["commentName"] = "ユーザー"
-            comment["commentText"]= "これはコメントです。"
+            comment["commentText"] = "これはコメントです。"
             comment["commentPost"] = "helloWorld"
             comment["commentDate"] = Time.now.strftime("%Y%m%d%H%M%S")
-
+        rescue => exception
+            SysLogger.error exception.message
+        ensure
             settings.close
             default.close
             categories.close
             medias.close
             comment.close
-        rescue => exception
-            SysLogger.error exception.message
-        ensure
             return 0
         end
     end

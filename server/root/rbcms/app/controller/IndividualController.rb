@@ -26,6 +26,7 @@ class IndividualController
                         :postCategory => post["postCategory"],
                         :postDate => post["postDate"],
                         :postContent => post["postContent"],
+                        :commentlist => Comment.get(post["postId"]),
                         :token => Token.set,
                     },
                     "root/rbcms/themes/#{Theme.get}/",
