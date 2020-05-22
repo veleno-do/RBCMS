@@ -40,6 +40,7 @@ class Installer
             default = GDBM.new('db/postdata/default.db',flags=GDBM::NEWDB)
             categories = GDBM.new('db/categories.db',flags=GDBM::NEWDB)
             medias = GDBM.new('db/medias.db',flags=GDBM::NEWDB)
+            comment = GDBM.new('db/comments/example.db',flags=GDBM::NEWDB)
 
             settings["username"] = datas["username"]
             settings["password"] = datas["password"]
@@ -49,11 +50,10 @@ class Installer
             settings["whetherAddId"] = "on"
             settings["whetherAddStyle"] = "on"
             settings["pagenation"] = "5"
-            settings["uriRule"] = ""
 
             settings["activeTheme"] = "default"
 
-            default["postTitle"] = "Hello, world"
+            default["postTitle"] = "Hello world!"
             default["postId"] = "helloWorld"
             default["postStyle"] = ""
             default["postContent"] = "こんにちは、最初の投稿です。削除してRBCMSを始めましょう。"
@@ -62,10 +62,16 @@ class Installer
 
             categories["なし"] = String.new
 
+            comment["commentName"] = "ユーザー"
+            comment["commentText"]= "これはコメントです。"
+            comment["commentPost"] = "helloWorld"
+            comment["commentDate"] = Time.now.strftime("%Y%m%d%H%M%S")
+
             settings.close
             default.close
             categories.close
             medias.close
+            comment.close
         rescue => exception
             SysLogger.error exception.message
         ensure

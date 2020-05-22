@@ -17,7 +17,6 @@ class AboutController
                 "about.rhtml",
                 {
                     :sitename => settings["sitename"],
-                    :address => settings["address"],
                     :categories => settings["categories"],
                 },
                 "root/rbcms/themes/#{Theme.get}/",

@@ -377,18 +377,6 @@
                                         <small id="remove-article-category" class="form-text text-muted">入力が終わって2秒後に削除処理が完了します。完了するまでは、文字をそのままにしてください。キャンセルしたい場合は、2秒経つ前に文字を全て削除してください。</small>
                                     </div>
 
-                                    <div class="form-group mb-4">
-                                        <label for="changeUriRule">URIをカスタマイズ</label>
-                                        <input type="text" class="form-control" id="changeUriRule" aria-describedby="change-uri-rule" placeholder="/正規表現を入力/" v-model="uriRule" >
-                                        <small id="change-uri-rule" class="form-text text-muted">サイトのURLに変更を加えます。文法に誤りがある場合、正常に動作しない恐れがあるので、基本変更しないことをお勧めします。</small>
-                                        <dl>
-                                            <dt><small>文法</small></dt>
-                                            <dd><ul>
-                                                <li><small>//</small></li>
-                                            </ul></dd>
-                                        </dl>
-                                    </div>
-
                                 </div>
                                 
                             </div>
@@ -747,15 +735,6 @@
                                 message.querySelector('small').innerHTML = '削除するには削除したいカテゴリ名を入力して2秒後に削除処理が走ります。'
                             }
                         }, 2000)
-                    },
-
-                    uriRule: {
-                        handler: _.debounce (function (value) {
-                            this.post ({
-                                "uriRule": value,
-                                "token": this.token,
-                            }, "/admin/post")
-                        }, 500)
                     },
 
                 },

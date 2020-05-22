@@ -46,11 +46,6 @@ class RoutingRule
                 "method"        => "POST",
             },
             {
-                "controller"    => AdminArticleController,
-                "rule"          => /^\/admin\/article$/,
-                "method"        => "POST",
-            },
-            {
                 "controller"    => AdminAddCategoryController,
                 "rule"          => /^\/admin\/addcategory$/,
                 "method"        => "POST",
@@ -129,6 +124,11 @@ class RoutingRule
                 "controller"    => FrontSearchPagenateController,
                 "rule"          => /^\/search\/\S+\/\d+$/,
                 "method"        => "GET",
+            },
+            {
+                "controller"    => CommentController,
+                "rule"          => /^\/comment$/,
+                "method"        => "POST",
             },
             {
                 "controller"    => AsyncMediaController,

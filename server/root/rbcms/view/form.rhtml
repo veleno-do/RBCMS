@@ -21,6 +21,7 @@
             data: {
                 commentName: "",
                 commentText: "",
+                commentPost: "<%= postId %>",
                 result: "danger",
                 message: "",
                 token: "<%= token %>",
@@ -31,7 +32,7 @@
                         try {
                             var that = this
                             var XHR = new XMLHttpRequest();
-                            var postData = "commentName=" + encodeURIComponent (this.commentName) + "&commentText=" + encodeURIComponent (this.commentText) + "&token=" + this.token
+                            var postData = "commentName=" + encodeURIComponent (this.commentName) + "&commentText=" + encodeURIComponent (this.commentText) + "&commentPost=" + this.commentPost + "&token=" + this.token
                             XHR.onreadystatechange = function () {
                                 if (this.readyState == 4 && this.status == 200) {
                                     that.message = "送信完了しました。"
