@@ -30,7 +30,6 @@ class Analysisor
         rescue => exception
             SysLogger.error exception.message
         end
-        SysLogger.debug envs
         Env.new(envs)
     end
 
