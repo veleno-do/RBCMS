@@ -22,6 +22,7 @@ class Post
                 "postCategory" => URI.decode(db["postCategory"]),
                 "postDate" => URI.decode(db["postDate"]),
                 "postContent" => URI.decode(db["postContent"]),
+                "postStyle" => URI.decode(db["postStyle"]),
             } end}}
         rescue => exception
             SysLogger.error exception.message

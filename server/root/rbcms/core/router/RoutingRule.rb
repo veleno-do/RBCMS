@@ -66,13 +66,23 @@ class RoutingRule
                 "method"        => "POST",
             },
             {
-                "contoller"     => AdminUploadThemeController,
+                "controller"     => AdminUploadThemeController,
                 "rule"          => /^\/admin\/upload\/theme$/,
                 "method"        => "POST",
             },
             {
-                "contoller"     => AdminUploadMediaController,
+                "controller"     => AdminUploadMediaController,
                 "rule"          => /^\/admin\/upload\/media$/,
+                "method"        => "POST",
+            },
+            {
+                "controller"    => PreviewController,
+                "rule"          => /^\/prev$/,
+                "method"        => "POST",
+            },
+            {
+                "controller"    => AdminUpdateArticleController,
+                "rule"          => /^\/admin\/update\/article$/,
                 "method"        => "POST",
             },
             {
@@ -129,21 +139,6 @@ class RoutingRule
                 "controller"    => CommentController,
                 "rule"          => /^\/comment$/,
                 "method"        => "POST",
-            },
-            {
-                "controller"    => AsyncMediaController,
-                "rule"          => /^\/async\/medias\/\d+/,
-                "method"        => "GET",
-            },
-            {
-                "controller"    => AsyncPostController,
-                "rule"          => /^\/async\/posts\/\d+/,
-                "method"        => "GET",
-            },
-            {
-                "controller"    => AsyncCommentController,
-                "rule"          => /^\/async\/comments\/\d+/,
-                "method"        => "GET",
             },
             {
                 "controller"    => ThemeItemController,

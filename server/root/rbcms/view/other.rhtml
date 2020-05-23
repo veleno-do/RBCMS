@@ -1,0 +1,9 @@
+<% posts.each do |i,post| %>
+<div class="col mb-4">
+    <a href="/post/<%= post["postId"] %>" class="card text-secondary">
+        <div class="card-body">
+            <h5 class="card-title"><%= post["postTitle"] %></h5>
+        </div>
+    </a>
+</div>
+<% end %>

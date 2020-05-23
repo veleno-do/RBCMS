@@ -6,7 +6,7 @@ end
 
 class View < OpenStruct
     include ViewInterface
-    attr_reader :path
+    attr_reader :path, :posts
     public
     def self.render(filename = String.new, opt = Hash.new, path = 'root/rbcms/view/')
         self.new(opt).render(path,filename)
@@ -55,5 +55,20 @@ class View < OpenStruct
 
     def comments
         ERB.new(File.read("root/rbcms/view/comments.rhtml")).result(binding)
+    end
+
+    def recent count
+        @posts = Article.get({
+            "count"=>count.to_i
+        })
+        ERB.new(File.read("root/rbcms/view/other.rhtml")).result(binding)
+    end
+
+    def concerned count
+        @posts = Article.get({
+            "count" => count,
+            "category" => postCategory,
+        })
+        ERB.new(File.read("root/rbcms/view/other.rhtml")).result(binding)
     end
 end

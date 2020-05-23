@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-6">
                     <div class="list-group list-group-horizontal ml-auto" style="width:fit-content;">
-                        <a href="javascript:void(0)" target="" class="list-group-item border-0 small">{{username}}</a>
+                        <p class="list-group-item border-0 small my-0 text-dark">{{username}}</p>
                         <a href="/admin/logout" target="" class="list-group-item border-0 small">ログアウト</a>
                     </div>
                 </div> 
@@ -92,7 +92,7 @@
                                                     <h5 class="mb-0">コメント</h5>
                                                 </div>
                                                 <div class="card-body">
-                                                    <div class="card-text"><a data-toggle="list" href="#list-comments" role="tab" aria-controls="list-comments" ><i class="fas fa-comment-alt"></i> <span>1</span>件のコメントが届いています</a></div>
+                                                    <div class="card-text"><a data-toggle="list" href="#list-comments" role="tab" aria-controls="list-comments" ><i class="fas fa-comment-alt"></i> <span>{{comments.length}}</span>件のコメントが届いています</a></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -173,7 +173,8 @@
                                         </div>
 
                                         <div class="w-100 text-right mb-5">
-                                            <a href="javascript:void(0)" class="btn btn-primary">プレビュー</a>
+                                            <a class="btn btn-primary" id="list-prev-list" data-toggle="list" href="#list-prev" role="tab" aria-controls="list-prev" v-on:click="getPrev" >プレビュー</a><br>
+                                            <small>Vueは機能しません。ご了承ください。</small>
                                         </div>
 
                                         <div class="w-100 text-right mb-5">
@@ -221,9 +222,9 @@
 
                                 <div class="tab-pane fade" id="list-article" role="tabpanel" aria-labelledby="list-article-list">
 
-                                    <table class="table table-striped table-hover">
+                                    <table class="table">
                                         
-                                        <thead>
+                                        <thead class="bg-light">
                                             <tr>
                                                 <th scope="col">タイトル</th>
                                                 <th scope="col">カテゴリ</th>
@@ -238,16 +239,12 @@
                                                     <td>{{article.title}}</td>
                                                     <td>{{article.category}}</td>
                                                     <td>{{article.date}}</td>
-                                                    <td><a href="javascript:void(0)" target="" class="btn btn-primary text-light">編集</a></td>
+                                                    <td><a class="btn btn-primary editButton" id="list-edit-list" data-toggle="list" href="#list-edit" role="tab" aria-controls="list-edit" v-on:click="edit(article.id)">編集</a></td>
                                                 </tr>
                                             </template>
                                         </tbody>
 
                                     </table>
-
-                                    <!-- <div class="w-100 text-center">
-                                        <a href="javascript:void(0)" target="">さらに10件表示</a>
-                                    </div> -->
 
                                 </div>
 
@@ -257,15 +254,11 @@
                                         <div class="card mb-3">
                                             <div class="card-body">
                                                 <h4 class="card-title">{{comment.postedBy}}</h4>
-                                                <h6 class="card-subtitle mb-2 text-muted"><small>投稿記事: </small><a href="javascript:void(0)" target="">{{comment.targetArticle}}</a><small>より</small></h6>
+                                                <h6 class="card-subtitle mb-2 text-muted"><small>投稿記事: </small><a :href="'/post/'+comment.targetArticle" target="">{{comment.targetArticle}}</a><small>より</small></h6>
                                                 <p class="card-t+ext">{{comment.body}}</p>
                                             </div>
                                         </div>
                                     </template>
-
-                                    <div class="w-100 text-center">
-                                        <a href="javascript:void(0)" target="">さらに10件表示</a>
-                                    </div>
 
                                 </div>
                                 
@@ -378,6 +371,87 @@
                                     </div>
 
                                 </div>
+
+                                <div class="tab-pane fade" id="list-edit" role="tabpanel" aria-labelledby="list-edit-list">
+
+                                    <section class="col-12">
+                                    
+                                        <a href="javascript:void(0)" class="lead" v-on:click="backToPostList" style="z-index:100"><i class="fas fa-chevron-left"></i> 記事一覧へ戻る</a>
+
+                                        <div id="updating" class="mt-4 alert alert-info alert-dismissible fade show" role="alert">
+                                            <h6 class="alert-heading mb-0">記事の編集ができます。</h6>
+                                            <hr>
+                                            <p class="mb-0"><small>項目を記入し、編集ボタンを押して下さい。</small></p>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="updateTitle">記事のタイトル <span class="badge badge-danger">必須</span></label>
+                                            <input type="text" class="form-control" id="updateTitle" aria-describedby="update-title" placeholder="記事のタイトルを編集" v-model="updateTitle" required />
+                                            <small id="update-title" class="form-text text-muted">記事のh1要素とtitle要素になります。</small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="updateId">記事の識別子 <span class="badge badge-danger">必須</span></label>
+                                            <input type="text" class="form-control" id="updateId" aria-describedby="update-id" placeholder="記事の識別子を編集" v-model="updateId" required />
+                                            <small id="update-id" class="form-text text-muted">識別子はURIに使用します。</small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="updateStylesheet">記事のスタイル</label>
+                                            <textarea class="form-control" id="updateStylesheet" rows="5" aria-describedby="update-stylesheet" placeholder="記事のスタイルを編集" v-model="updateStyle"></textarea>
+                                            <small id="update-stylesheet" class="form-text text-muted">記事のスタイルを書きます。文法はCSSです。</small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="updateContent">記事のコンテンツ <span class="badge badge-danger">必須</span></label>
+                                            <textarea class="form-control postarea" id="updateContent" rows="15" aria-describedby="update-content" placeholder="記事のコンテンツを編集" v-model="updateContent" required></textarea>
+                                            <small id="update-content" class="form-text text-muted">HTML文をそのまま書きます。下のボタンよりタグの追加は簡単に行えます。</small>
+                                        </div>
+
+                                        <div class="d-flex mb-5 flex-wrap">
+                                            <template v-for="tag in tags">
+                                                <a href="javascript:void(0)" class="btn btn-primary m-2" v-on:click="puttag(tag.body)">{{tag.tagName}}</a>
+                                            </template>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="updateCategory">記事のカテゴリ <span class="badge badge-danger">必須</span></label>
+                                            <select class="form-control" id="updateCategory" aria-describedby="update-category" v-model="updateCategory">
+                                                <template v-for="category in categories">
+                                                    <option>{{category}}</option>
+                                                </template>
+                                            </select>
+                                            <small id="update-category" class="form-text text-muted">記事のカテゴリを設定します。カテゴリの追加は詳細設定から行えます。</small>
+                                        </div>
+
+                                        <div class="w-100 text-right mb-5">
+                                            <a class="btn btn-primary editprevButton" id="list-editprev-list" data-toggle="list" href="#list-editprev" role="tab" aria-controls="list-editprev" v-on:click="editPrev" >プレビュー</a><br>
+                                            <small>Vueは機能しません。ご了承ください。</small>
+                                        </div>
+
+                                        <div class="w-100 text-right mb-5">
+                                            <a href="javascript:void(0)" class="btn btn-primary" v-on:click="updateArticle">編集</a>
+                                        </div>
+
+                                    </section>
+
+                                </div>
+
+                                <div class="tab-pane fade" id="list-prev" role="tabpanel" aria-labelledby="list-prev-list">
+
+                                    <a href="javascript:void(0)" class="position-fixed lead" v-on:click="backToPost" style="z-index:100"><i class="fas fa-chevron-left"></i> 投稿へ戻る</a>
+
+                                    <div v-html="prev"></div>
+
+                                </div>
+
+                                <div class="tab-pane fade" id="list-editprev" role="tabpanel" aria-labelledby="list-editprev-list">
+
+                                    <a href="javascript:void(0)" class="position-fixed lead" v-on:click="backToEdit" style="z-index:100"><i class="fas fa-chevron-left"></i> 編集へ戻る</a>
+
+                                    <div v-html="editprev"></div>
+
+                                </div>
                                 
                             </div>
                             
@@ -429,6 +503,7 @@
                         {
                             id: decodeURIComponent(`<%= article["postId"] %>`),
                             title: decodeURIComponent(`<%= article["postTitle"] %>`),
+                            style: decodeURIComponent(`<%= article["postStyle"] %>`),
                             category: decodeURIComponent(`<%= article["postCategory"] %>`),
                             content: decodeURIComponent(`<%= article["postContent"] %>`),
                             date: decodeURIComponent(`<%= article["postDate"] %>`),
@@ -437,12 +512,13 @@
                     ],
 
                     comments: [
+                        <% commentlist.each do |i,comment| %>
                         {
-                            postedBy: "投稿者",
-                            targetArticle: "Hello World",
-                            articleId: 0,
-                            body: "これはコメントです。"
+                            postedBy: "<%= comment["commentName"] %>",
+                            targetArticle: "<%= comment["commentPost"] %>",
+                            body: "<%= comment["commentText"] %>",
                         },
+                        <% end %>
                     ],
 
                     themes: [
@@ -478,10 +554,16 @@
                     postStyle: "",
                     postContent: "",
                     postCategory: "なし",
-                },
 
-                computed: {
+                    prev: "",
 
+                    updateTitle: "",
+                    updateId: "",
+                    updateStyle: "",
+                    updateContent: "",
+                    updateCategory: "",
+
+                    editprev: "",
                 },
 
                 methods: {
@@ -600,18 +682,6 @@
                         }, "/admin/changetheme")
                     },
 
-                    getMoreMedias: function () {
-
-                    },
-
-                    getMoreArticles: function () {
-
-                    },
-
-                    getMoreComments: function () {
-
-                    },
-
                     puttag: function (body) {
                         let postarea = document.querySelector(".postarea");
                         if (this.whetherAddClass === "off") {
@@ -624,6 +694,138 @@
                             body = body.replace(' style=""', '')
                         }
                         this.postContent = postarea.value.substr(0, postarea.selectionStart) + "\n" + body + "\n" + postarea.value.substr(postarea.selectionStart)
+                    },
+
+                    backToPost: function () {
+                        postpage = document.querySelector ("#list-post")
+                        prevpage = document.querySelector ("#list-prev")
+                        postpage.classList.add ("active")
+                        postpage.classList.add ("show")
+                        prevpage.classList.remove ("active")
+                        prevpage.classList.remove ("show")
+                        document.querySelector ("#list-prev-list").classList.remove ("active")
+                        this.head = "投稿"
+                    },
+
+                    getPrev: function () {
+                        try {
+                            let that = this
+                            var date = new Date ()
+                            let postDate = ""
+                            if (this.postId === '') {
+                                this.postId = "simplePost" + date.getFullYear () + date.getMonth () + date.getDay () + date.getDate () + date.getHours () + date.getMinutes () + date.getSeconds ()
+                            }
+                            postDate = String(date.getFullYear ()) + ("00" + String(date.getMonth () + 1)).slice(-2) + ("00" + String(date.getDate ())).slice(-2)
+                            var XHR = new XMLHttpRequest();
+                            var postdata = "postTitle=" + this.postTitle + "&postId=" + this.postId + "&postStyle=" + this.postStyle + "&postCategory=" + this.postCategory + "&postContent=" + this.postContent + "&postDate=" + postDate + "&token=" + this.token
+                            XHR.onreadystatechange = function () {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    that.head = "プレビュー";
+                                    that.prev = this.responseText
+                                }
+                            }
+                            console.log(postdata)
+                            XHR.open ('POST',"/prev",true)
+                            XHR.setRequestHeader ('Content-Type','application/x-www-form-urlencoded')
+                            XHR.send (postdata)
+                        } catch (error) {
+                            console.log (error)
+                        }
+                    },
+
+                    backToPostList: function () {
+                        articlepage = document.querySelector ("#list-article")
+                        editpage = document.querySelector ("#list-edit")
+                        articlepage.classList.add ("active")
+                        articlepage.classList.add ("show")
+                        editpage.classList.remove ("active")
+                        editpage.classList.remove ("show")
+                        document.querySelector(".editButton.active").classList.remove ("active")
+                        this.head = "記事一覧"
+                    },
+
+                    edit: function (id) {
+                        let that = this
+                        datas = this.articles
+                        datas.forEach (function (article,i,articles) {
+                            if (id === article.id) {
+                                that.head = "記事編集"
+                                that.updateId = that.articles[i].id
+                                that.updateTitle = that.articles[i].title
+                                that.updateCategory = that.articles[i].category
+                                that.updateContent = that.articles[i].content
+                                that.updateStyle = that.articles[i].style
+                            }
+                        });
+                    },
+
+                    backToEdit: function () {
+                        editpage = document.querySelector ("#list-edit")
+                        editprevpage = document.querySelector ("#list-editprev")
+                        editpage.classList.add ("active")
+                        editpage.classList.add ("show")
+                        editprevpage.classList.remove ("active")
+                        editprevpage.classList.remove ("show")
+                        document.querySelector(".editprevButton.active").classList.remove ("active")
+                        this.head = "記事一覧"
+                    },
+
+                    editPrev: function () {
+                        try {
+                            let that = this
+                            var date = new Date ()
+                            let updateDate = ""
+                            if (this.updateId === '') {
+                                this.updateId = "simplePost" + date.getFullYear () + date.getMonth () + date.getDay () + date.getDate () + date.getHours () + date.getMinutes () + date.getSeconds ()
+                            }
+                            updateDate = String(date.getFullYear ()) + ("00" + String(date.getMonth () + 1)).slice(-2) + ("00" + String(date.getDate ())).slice(-2)
+                            var XHR = new XMLHttpRequest();
+                            var postdata = "postTitle=" + this.updateTitle + "&postId=" + this.updateId + "&postStyle=" + this.updateStyle + "&postCategory=" + this.updateCategory + "&postContent=" + this.updateContent + "&postDate=" + updateDate + "&token=" + this.token
+                            XHR.onreadystatechange = function () {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    that.head = "プレビュー";
+                                    that.editprev = this.responseText
+                                }
+                            }
+                            console.log(postdata)
+                            XHR.open ('POST',"/prev",true)
+                            XHR.setRequestHeader ('Content-Type','application/x-www-form-urlencoded')
+                            XHR.send (postdata)
+                        } catch (error) {
+                            console.log (error)
+                        }
+                    },
+
+                    updateArticle: function () {
+                        if (this.updateId === '') {
+                            var date = new Date ()
+                            this.updateId = "simplePost" + date.getFullYear () + date.getMonth () + date.getDay () + date.getDate () + date.getHours () + date.getMinutes () + date.getSeconds ()
+                        }
+                        var message = document.querySelector('#updating')
+                        if (this.updateTitle !== '' && this.updateId !== '' && this.updateContent !== '') {
+                            var that = this
+                            this.post ({
+                                "postTitle": that.updateTitle,
+                                "postId": that.updateId,
+                                "postStyle": that.updateStyle,
+                                "postContent": that.updateContent,
+                                "postCategory": that.updateCategory,
+                                "token": that.token,
+                            }, "/admin/update/article", message.querySelector('small'))
+                            message.classList.add('alert-success')
+                            message.classList.remove('alert-danger')
+                            message.classList.remove('alert-info')
+                            message.querySelector('h6').innerHTML = "編集が完了しました。"
+                            message.querySelector('small').innerHTML = "さらなる記事の編集が可能です。項目を記入し、編集ボタンを押して下さい。"
+                        } else {
+                            message.classList.add('alert-danger')
+                            message.classList.remove('alert-info')
+                            message.querySelector('h6').innerHTML = "エラー"
+                            message.querySelector('small').innerHTML = "必須項目に未記入の欄があります。"
+                        }
+                        message.scrollIntoView ({
+                            behavior: "smooth"
+                        })
                     },
 
                 },

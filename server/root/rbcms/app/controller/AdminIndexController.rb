@@ -31,6 +31,7 @@ class AdminIndexController
                         :article => admin["article"],
                         :categories => admin["categories"],
                         :themes => admin["themes"],
+                        :commentlist => Comment.get("all"),
                     }
                 )
             }
