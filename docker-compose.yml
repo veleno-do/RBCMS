@@ -9,6 +9,6 @@ services:
         environment:
             - COMPOSE_PROJECT_NAME=rbcms
         ports:
-            - 8081:80
+            - 80:80
         volumes:
             - ./server:/home
