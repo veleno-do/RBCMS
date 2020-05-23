@@ -46,8 +46,6 @@
                             <div class="list-group" id="list-tab" role="tablist">
                                 <a class="list-group-item list-group-item-action border-0 small" id="list-dashboard-list" data-toggle="list" href="#list-dashboard" role="tab" aria-controls="list-dashboard" v-on:click="head = 'ダッシュボード'" ><i class="fas fa-hashtag"></i> ダッシュボード</a>
                                 <a class="list-group-item list-group-item-action border-0 small" id="list-post-list" data-toggle="list" href="#list-post" role="tab" aria-controls="list-post" v-on:click="head = '投稿'" ><i class="fas fa-feather-alt"></i> 投稿</a>
-                                <a class="list-group-item list-group-item-action border-0 small" id="list-media-list" data-toggle="list" href="#list-media" role="tab" aria-controls="list-media" v-on:click="head = 'メディアのアップロード'" ><i class="fas fa-upload"></i> メディアのアップロード</a>
-                                <a class="list-group-item list-group-item-action border-0 small" id="list-medias-list" data-toggle="list" href="#list-medias" role="tab" aria-controls="list-medias" v-on:click="head = 'メディア一覧'" ><i class="fas fa-images"></i> メディア一覧</a>
                                 <a class="list-group-item list-group-item-action border-0 small" id="list-article-list" data-toggle="list" href="#list-article" role="tab" aria-controls="list-article" v-on:click="head = '記事一覧'" ><i class="fas fa-file-alt"></i> 記事一覧</a>
                                 <a class="list-group-item list-group-item-action border-0 small" id="list-comments-list" data-toggle="list" href="#list-comments" role="tab" aria-controls="list-comments" v-on:click="head = 'コメント一覧'" ><i class="fas fa-comment-alt"></i> コメント一覧</a>
                                 <a class="list-group-item list-group-item-action border-0 small" id="list-theme-list" data-toggle="list" href="#list-theme" role="tab" aria-controls="list-theme" v-on:click="head = 'テーマの変更'" ><i class="fas fa-th-large"></i> テーマの変更</a>
@@ -185,41 +183,6 @@
 
                                 </div>
 
-                                <div class="tab-pane fade position-relative" id="list-media" role="tabpanel" aria-labelledby="list-media-list">
-
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <input type="file" class="form-control-file" id="mediaUpload" accept="image/*" required />
-                                        </div>
-                                        
-                                        <div class="w-100">
-                                            <a href="javascript:void(0)" class="btn btn-primary" v-on:click="uploadMedia">アップロード</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="tab-pane fade position-relative" id="list-medias" role="tabpanel" aria-labelledby="list-medias-list">
-
-                                    <div class="col-12 mb-2">
-                                        <a href="javascript:void(0)" target="" class="btn btn-primary">メディアを更新</a>
-                                    </div>
-
-                                    <div class="card-columns">
-
-                                        <template v-for="image in images">
-                                            <div class="card">
-                                                <img class="card-img-top" :src="image.imagePath" alt="...">
-                                                <div class="card-body">
-                                                    <h6 class="card-title">{{image.imagePath}}</h6>
-                                                </div>
-                                            </div>
-                                        </template>
-
-                                    </div>
-
-                                </div>
-
                                 <div class="tab-pane fade" id="list-article" role="tabpanel" aria-labelledby="list-article-list">
 
                                     <table class="table">
@@ -263,16 +226,6 @@
                                 </div>
                                 
                                 <div class="tab-pane fade" id="list-theme" role="tabpanel" aria-labelledby="list-theme-list">
-
-                                    <div class="col-12 mb-3">
-                                        <div class="form-group">
-                                            <input type="file" class="form-control-file" id="themeUpload" accept="application/zip" required />
-                                        </div>
-                                        
-                                        <div class="w-100">
-                                            <a href="javascript:void(0)" class="btn btn-primary" target="" v-on:click="uploadTheme">アップロード</a>
-                                        </div>
-                                    </div>
 
                                     <template v-for="theme in themes">
                                         <div class="card bg-light w-100 mb-3">
@@ -404,13 +357,13 @@
 
                                         <div class="form-group">
                                             <label for="updateContent">記事のコンテンツ <span class="badge badge-danger">必須</span></label>
-                                            <textarea class="form-control postarea" id="updateContent" rows="15" aria-describedby="update-content" placeholder="記事のコンテンツを編集" v-model="updateContent" required></textarea>
+                                            <textarea class="form-control editarea" id="updateContent" rows="15" aria-describedby="update-content" placeholder="記事のコンテンツを編集" v-model="updateContent" required></textarea>
                                             <small id="update-content" class="form-text text-muted">HTML文をそのまま書きます。下のボタンよりタグの追加は簡単に行えます。</small>
                                         </div>
 
                                         <div class="d-flex mb-5 flex-wrap">
                                             <template v-for="tag in tags">
-                                                <a href="javascript:void(0)" class="btn btn-primary m-2" v-on:click="puttag(tag.body)">{{tag.tagName}}</a>
+                                                <a href="javascript:void(0)" class="btn btn-primary m-2" v-on:click="puttagdit(tag.body)">{{tag.tagName}}</a>
                                             </template>
                                         </div>
 
@@ -594,16 +547,6 @@
                         }
                     },
 
-                    postZip: function (targetZip) {
-                        try {
-                            XHR.open ("POST","/admin/upload/theme",true)
-                            XHR.setRequestHeader ("Content-Type","application/zip")
-                            XHR.send ()
-                        } catch (error) {
-                            console.log (error)
-                        }
-                    },
-
                     postArticle: function () {
                         if (this.postId === '') {
                             var date = new Date ()
@@ -634,44 +577,6 @@
                         }
                         message.scrollIntoView ({
                             behavior: "smooth"
-                        })
-                    },
-
-                    postMedia: function (targetMedia) {
-                        try {
-                            if(!(window.File)) return;
-                            if(!(window.FormData)) return;
-                            var formdata = new FormData ()
-                            var files = targetMedia.files
-                            if (files) {
-                                for (var x = 0; x < files.length; x ++) {
-                                    formdata.append (files[x].name, files[x])
-                                }
-                            }
-                            var XHR = new XMLHttpRequest ()
-                            XHR.onload = function (e) {
-                                console.log (XHR.responseText)
-                            }
-                            XHR.open ("POST" , "/admin/upload/media")
-                            XHR.send (formdata)
-                        } catch (error) {
-                            console.log (error)
-                        }
-                    },
-
-                    uploadMedia: function () {
-                        let targetMedia = document.querySelector('#mediaUpload')
-                        this.postMedia ({
-                            "uploadMedia": targetMedia,
-                            "token": this.token,
-                        })
-                    },
-
-                    uploadTheme () {
-                        let targetZip = document.querySelector('#themeUpload').value
-                        this.postZip ({
-                            "uploadzip": targetZip,
-                            "token": this.token,
                         })
                     },
 
@@ -826,6 +731,20 @@
                         message.scrollIntoView ({
                             behavior: "smooth"
                         })
+                    },
+
+                    puttagdit: function (body) {
+                        let editarea = document.querySelector(".editarea");
+                        if (this.whetherAddClass === "off") {
+                            body = body.replace(' class=""', '')
+                        }
+                        if (this.whetherAddId === "off") {
+                            body = body.replace(' id=""', '')
+                        }
+                        if (this.whetherAddStyle === "off") {
+                            body = body.replace(' style=""', '')
+                        }
+                        this.updateContent = editarea.value.substr(0, editarea.selectionStart) + "\n" + body + "\n" + editarea.value.substr(editarea.selectionStart)
                     },
 
                 },

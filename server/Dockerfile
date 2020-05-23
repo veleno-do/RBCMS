@@ -8,7 +8,7 @@ ENV             APP_ROOT /home
 
 RUN             yum update -y
 RUN             yum install -y openssh-server
-RUN             yum install -y ruby
+RUN             yum install -y ruby php
 RUN             yum clean all
 
 EXPOSE          80

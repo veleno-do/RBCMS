@@ -9,7 +9,8 @@ class AdminUploadMediaController
     attr_reader
     public
     def exe
-
+        cgi = CGI.new
+        SysLogger.debug cgi
     end
 
     def initialize opt
